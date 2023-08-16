@@ -1,7 +1,9 @@
 package com.squad2.Locadoraveiculos.models;
 
-import java.math.BigDecimal;
+import jakarta.persistence.Entity;
 
+import java.math.BigDecimal;
+@Entity
 public class ApoliceSeguro {
 
     private BigDecimal valorFranquia;
