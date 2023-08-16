@@ -15,6 +15,7 @@ public class Acessorio {
 
     @Column
     private String descricao;
+    
     @ManyToOne
     @JoinColumn(name = "carro_id")
     private List<Carro> carros;

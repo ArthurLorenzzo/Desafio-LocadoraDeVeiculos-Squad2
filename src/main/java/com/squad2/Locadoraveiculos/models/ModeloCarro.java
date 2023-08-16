@@ -10,7 +10,11 @@ public class ModeloCarro {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column
     private String descricao;
+
+    //Nao necessita annotation
     private Categoria categoria;
 
     @OneToMany
