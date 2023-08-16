@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 @Data
 public abstract class Pessoa {
 
@@ -20,8 +21,8 @@ public abstract class Pessoa {
     private Date dataDeNascimento;
     @Column
     private String cpf;
-
-    //Nao necessita annotation
+    @Column
+    @Enumerated(EnumType.STRING)
     private Sexo sexo;
 
 }

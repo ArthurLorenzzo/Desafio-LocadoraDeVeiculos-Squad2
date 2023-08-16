@@ -6,6 +6,7 @@ import lombok.Data;
 import java.math.BigDecimal;
 import java.util.*;
 @Entity
+@Table(name = "aluguel")
 @Data
 public class Aluguel {
     @Id
@@ -18,16 +19,18 @@ public class Aluguel {
     private Date dataEntrega;
     @Column
     private Date dataDevolucao;
-
     @Column
     private BigDecimal valorTotal;
 
-    @OneToOne
-    @JoinColumn(name = "apoliceSeguro_id")
+    @ManyToOne
+    @JoinColumn(name = "motorista_id", nullable = false)
+    private Motorista motorista;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "apolice_seguro_id", referencedColumnName = "id")
     private ApoliceSeguro apoliceSeguro;
 
-    @ManyToOne
-    @JoinColumn(name = "carro_id")
+    @OneToMany(mappedBy = "aluguel")
     private List<Carro> carros = new ArrayList<>();
 
 }

@@ -17,8 +17,7 @@ public class Motorista extends Pessoa {
     @Column
     private String numeroCNH;
 
-    @OneToMany
-    @JoinColumn(name = "alugueis_id")
+    @OneToMany(mappedBy = "motorista")
     private List<Aluguel> alugueis;
 
 }
