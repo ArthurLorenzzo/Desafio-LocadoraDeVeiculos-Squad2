@@ -9,5 +9,4 @@ public class LocadoraVeiculosApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(LocadoraVeiculosApplication.class, args);
 	}
-
 }
