@@ -1,14 +1,14 @@
 package com.squad2.Locadoraveiculos.models;
 
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 
 public class Carro {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String placa;
     private String chassi;

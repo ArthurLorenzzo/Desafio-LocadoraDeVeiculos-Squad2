@@ -1,12 +1,19 @@
 package com.squad2.Locadoraveiculos.models;
 
+import jakarta.persistence.*;
+
 import java.util.List;
 import java.util.Objects;
 
 public class Acessorio {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column
     private String descricao;
+    @ManyToOne
+    @JoinColumn(name = "carro_id")
     private List<Carro> carros;
 
     public Acessorio() {

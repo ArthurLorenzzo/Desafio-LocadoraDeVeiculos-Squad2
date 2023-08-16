@@ -1,11 +1,15 @@
 package com.squad2.Locadoraveiculos.models;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
 import java.util.Objects;
 
 public class ModeloCarro {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String descricao;
     private Categoria categoria;

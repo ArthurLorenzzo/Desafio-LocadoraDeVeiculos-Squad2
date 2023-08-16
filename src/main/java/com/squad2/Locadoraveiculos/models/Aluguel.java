@@ -1,13 +1,13 @@
 package com.squad2.Locadoraveiculos.models;
 
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.util.*;
 
 public class Aluguel {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Calendar dataPedido;
     private Date dataEntrega;
