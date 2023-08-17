@@ -20,7 +20,11 @@ public class MotoristaService {
     @Autowired
     private MotoristaRepository repository;
 
-    public ResponseEntity<Motorista> criarMotorista(CriarMotoristaDto motoristaDto) {
+    public ResponseEntity<Object> criarMotorista(CriarMotoristaDto motoristaDto) {
+
+        if (repository.existsByEmail(motoristaDto.email())){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Esse e-mail já existe");
+        }
 
         var motorista = new Motorista();
         BeanUtils.copyProperties(motoristaDto, motorista);
