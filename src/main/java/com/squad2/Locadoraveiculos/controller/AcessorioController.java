@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("api/acessorios")
 public class AcessorioController {
 
- @Autowired
+    @Autowired
     private AcessorioService acessorioService;
 
     @PostMapping
