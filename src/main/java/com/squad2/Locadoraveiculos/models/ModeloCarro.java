@@ -20,11 +20,12 @@ public class ModeloCarro {
     @Enumerated(EnumType.STRING)
     private Categoria categoria;
 
-    @OneToMany(mappedBy = "modeloCarro")
-    private List<Carro> carros;
-
     @ManyToOne
     @JoinColumn(name = "fabricante_id", nullable = false)
     private Fabricante fabricante;
+
+    @OneToMany(mappedBy = "modeloCarro")
+    private List<Carro> carros;
+
 
 }

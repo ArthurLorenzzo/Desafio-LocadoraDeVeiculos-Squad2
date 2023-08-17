@@ -18,23 +18,16 @@ public class AcessorioController {
     private AcessorioService acessorioService;
 
     @PostMapping
-    public ResponseEntity<Acessorio> criar (@RequestBody CriarAcessorioDto acessorioDto) {
-        return acessorioService.criarAcessorio(acessorioDto);
-    }
+    public ResponseEntity<Acessorio> criar (@RequestBody CriarAcessorioDto acessorioDto) { return acessorioService.criarAcessorio(acessorioDto); }
 
     @GetMapping
-    public ResponseEntity<List<Acessorio>> retornarTodos ( ) {
-        return acessorioService.retornarTodos();
-    }
+    public ResponseEntity<List<Acessorio>> retornarTodos () { return acessorioService.retornarTodos(); }
+
 
     @GetMapping("{id}")
-    public ResponseEntity<?>  retornarPorId (@PathVariable Long id){
-        return acessorioService.retornaPorId(id);
-    }
+    public ResponseEntity<?>  retornarPorId (@PathVariable Long id) { return acessorioService.retornaPorId(id); }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletarPorId (@PathVariable Long id) {
-        return acessorioService.deletarPorId(id);
-    }
+    public ResponseEntity<?> deletarPorId (@PathVariable Long id) { return acessorioService.deletarPorId(id); }
 
 }
