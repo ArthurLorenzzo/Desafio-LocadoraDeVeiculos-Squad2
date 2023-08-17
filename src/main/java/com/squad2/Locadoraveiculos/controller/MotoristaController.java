@@ -1,10 +1,13 @@
 package com.squad2.Locadoraveiculos.controller;
 
+import com.squad2.Locadoraveiculos.dto.CriarMotoristaDto;
 import com.squad2.Locadoraveiculos.models.Motorista;
-import com.squad2.Locadoraveiculos.repositories.MotoristaRepository;
 
+import com.squad2.Locadoraveiculos.repositories.MotoristaRepository;
+import com.squad2.Locadoraveiculos.services.MotoristaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -14,19 +17,15 @@ import java.util.List;
 @RequestMapping("/api/motorista")
 public class MotoristaController {
 
-    private MotoristaRepository motoristaRepository;
+    @Autowired
+    private MotoristaService service;
 
     @Autowired
-    public MotoristaController(MotoristaRepository motoristaRepository) {
-        this.motoristaRepository = motoristaRepository;
-    }
-
+    private MotoristaRepository motoristaRepository;
 
     @PostMapping
-    public Motorista salvar (@RequestBody Motorista motorista) {
-
-        return  motoristaRepository.save(motorista);
-
+    public ResponseEntity<Motorista> salvar(@RequestBody CriarMotoristaDto motoristaDto) {
+        return service.criarMotorista(motoristaDto);
     }
 
     @GetMapping
