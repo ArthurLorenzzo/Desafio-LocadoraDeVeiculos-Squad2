@@ -23,7 +23,7 @@ public class MotoristaController {
     private MotoristaRepository motoristaRepository;
 
     @PostMapping
-    public ResponseEntity<Object> salvar(@RequestBody CriarMotoristaDto motoristaDto) {
+    public ResponseEntity<Motorista> salvar(@RequestBody CriarMotoristaDto motoristaDto) {
         return service.criarMotorista(motoristaDto);
     }
 
@@ -37,14 +37,12 @@ public class MotoristaController {
         return service.delete(id);
     }
 
-   /* @GetMapping
-    public List<Motorista> getAll ( ) {
-
-        return motoristaRepository.findAll();
-
+   @GetMapping
+    public ResponseEntity<?> getAll() {
+        return service.listarMotoristas();
     }
 
-    @GetMapping("{id}")
+    /*@GetMapping("{id}")
     public Motorista getPessoaById (@PathVariable Long id) {
 
         return motoristaRepository.findById(id).orElseThrow(
