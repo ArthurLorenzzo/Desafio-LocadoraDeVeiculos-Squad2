@@ -21,6 +21,7 @@ public class MotoristaService {
     private MotoristaRepository repository;
 
     public ResponseEntity<Motorista> criarMotorista(CriarMotoristaDto motoristaDto) {
+
         var motorista = new Motorista();
         BeanUtils.copyProperties(motoristaDto, motorista);
         return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(motorista));
@@ -31,7 +32,7 @@ public class MotoristaService {
         var listaMotoristaDto = new ArrayList<LerMotoristaDto>();
         listaMotorista.forEach((x) -> {
             LerMotoristaDto lerMotoristaDto = new LerMotoristaDto(
-                    x.getId(), x.getNome(), x.getCpf(), x.getSexo(), x.getNumeroCNH()
+                    x.getId(), x.getNome(), x.getCpf(), x.getEmail(), x.getSexo(), x.getNumeroCNH()
             );
             listaMotoristaDto.add(lerMotoristaDto);
         });
