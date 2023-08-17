@@ -2,17 +2,19 @@ package com.squad2.Locadoraveiculos.services;
 
 import com.squad2.Locadoraveiculos.dto.CriarMotoristaDto;
 import com.squad2.Locadoraveiculos.dto.LerMotoristaDto;
+//import com.squad2.Locadoraveiculos.exceptions.ResourceNotFoundException;
+import com.squad2.Locadoraveiculos.exceptions.ResourceNotFoundException;
 import com.squad2.Locadoraveiculos.models.Motorista;
 import com.squad2.Locadoraveiculos.repositories.MotoristaRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class MotoristaService {
@@ -27,14 +29,37 @@ public class MotoristaService {
     }
 
     public ResponseEntity<List<LerMotoristaDto>> listarMotoristas() {
-        var listaMotorista = repository.findAll();
-        var listaMotoristaDto = new ArrayList<LerMotoristaDto>();
-        listaMotorista.forEach((x) -> {
-            LerMotoristaDto lerMotoristaDto = new LerMotoristaDto(
-                    x.getId(), x.getNome(), x.getCpf(), x.getSexo(), x.getNumeroCNH()
-            );
+        List<Motorista> listaMotorista = repository.findAll();
+        List<LerMotoristaDto> listaMotoristaDto = new ArrayList<>();
+
+        for (Motorista motorista : listaMotorista) {
+            LerMotoristaDto lerMotoristaDto = new LerMotoristaDto();
+            BeanUtils.copyProperties(motorista, lerMotoristaDto);
             listaMotoristaDto.add(lerMotoristaDto);
-        });
+        }
+
         return ResponseEntity.status(HttpStatus.OK).body(listaMotoristaDto);
+    }
+
+    public ResponseEntity<Motorista> atualizarMotorista(Long id, CriarMotoristaDto motoristaDto) {
+        Motorista motorista = repository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Nenhum registro encontrado para este ID!"));
+
+        BeanUtils.copyProperties(motoristaDto, motorista);
+        Motorista motoristaAtualizado = repository.save(motorista);
+        return ResponseEntity.ok(motoristaAtualizado);
+    }
+
+    public ResponseEntity<?> delete(Long id) {
+        try {
+            var entity = repository.findById(id)
+                    .orElseThrow(() -> new ResourceNotFoundException("Nenhum registro encontrado para este ID!"));
+            repository.delete(entity);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
     }
 }

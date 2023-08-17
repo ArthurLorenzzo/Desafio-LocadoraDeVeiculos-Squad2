@@ -2,7 +2,6 @@ package com.squad2.Locadoraveiculos.controller;
 
 import com.squad2.Locadoraveiculos.dto.CriarMotoristaDto;
 import com.squad2.Locadoraveiculos.models.Motorista;
-
 import com.squad2.Locadoraveiculos.repositories.MotoristaRepository;
 import com.squad2.Locadoraveiculos.services.MotoristaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/motorista")
+@RequestMapping("/api/motoristas")
 public class MotoristaController {
 
     @Autowired
@@ -28,7 +27,17 @@ public class MotoristaController {
         return service.criarMotorista(motoristaDto);
     }
 
-    @GetMapping
+    @PutMapping("/{id}")
+    public ResponseEntity<Motorista> atualizar(@PathVariable Long id, @RequestBody CriarMotoristaDto motorista) {
+        return service.atualizarMotorista(id, motorista);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) {
+        return service.delete(id);
+    }
+
+   /* @GetMapping
     public List<Motorista> getAll ( ) {
 
         return motoristaRepository.findAll();
@@ -49,9 +58,9 @@ public class MotoristaController {
                 motoristaRepository.delete(motorista);
                 return Void.TYPE;})
                     .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-    }
+    }*/
 
-    @PutMapping("{id}")
+    /*@PutMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void atualizar(@PathVariable Long id, @RequestBody Motorista motorista){
         motoristaRepository.findById(id).map(motorista1 -> {
@@ -59,7 +68,7 @@ public class MotoristaController {
             return motoristaRepository.save(motorista);
         }).orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-    }
+    }*/
 
 
 }
