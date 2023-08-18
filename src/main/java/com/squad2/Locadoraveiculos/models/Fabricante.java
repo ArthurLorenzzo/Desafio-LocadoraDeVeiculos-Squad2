@@ -1,18 +1,12 @@
 package com.squad2.Locadoraveiculos.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.List;
 @Entity
 @Data
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
 public class Fabricante {
 
     @Id
@@ -23,7 +17,7 @@ public class Fabricante {
     private String nome;
 
     @OneToMany (mappedBy = "fabricante")
-    @JsonBackReference
+    @JsonIgnore
     private List<ModeloCarro> modelos;
 
 }

@@ -1,5 +1,6 @@
 package com.squad2.Locadoraveiculos.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,6 +17,7 @@ public class Acessorio {
     private String descricao;
 
     @ManyToMany(mappedBy = "acessorios")
+    @JsonIgnore
     private List<Carro> carros;
 
 }
