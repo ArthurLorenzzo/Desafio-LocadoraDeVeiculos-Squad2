@@ -15,7 +15,7 @@ public class ModeloCarroService {
     private ModeloCarroRepository modeloCarroRepository;
     private FabricanteService fabricanteService;
 
-    private ResponseEntity<?> criarModeloCarro(CreateModeloCarroDto modeloCarroDto){
+    /*private ResponseEntity<?> criarModeloCarro(CreateModeloCarroDto modeloCarroDto){
         try{
             var modeloCarro = new ModeloCarro(
                     modeloCarroDto.descricao(),
@@ -28,5 +28,5 @@ public class ModeloCarroService {
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
-    }
+    }*/
 }
