@@ -1,5 +1,6 @@
 package com.squad2.Locadoraveiculos.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -29,7 +30,8 @@ public class Carro {
     private BigDecimal valorDiaria;
 
     @ManyToOne
-    @JoinColumn(name = "aluguel_id", nullable = false)
+    @JoinColumn(name = "aluguel_id")
+    @JsonIgnore
     private Aluguel aluguel;
 
     @ManyToMany(cascade = { CascadeType.ALL })

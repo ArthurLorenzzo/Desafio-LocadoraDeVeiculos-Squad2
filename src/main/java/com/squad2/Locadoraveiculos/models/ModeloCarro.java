@@ -1,9 +1,6 @@
 package com.squad2.Locadoraveiculos.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -14,9 +11,6 @@ import java.util.Objects;
 @Entity
 @Table(name = "modelo_carro")
 @Data
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
 public class ModeloCarro {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,10 +28,7 @@ public class ModeloCarro {
     private Fabricante fabricante;
 
     @OneToMany(mappedBy = "modeloCarro")
-    @JsonIdentityInfo(
-            generator = ObjectIdGenerators.PropertyGenerator.class,
-            property = "id")
-    @JsonManagedReference
+    @JsonIgnore
     private List<Carro> carros;
 
 
