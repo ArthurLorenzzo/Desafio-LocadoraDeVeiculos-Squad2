@@ -1,8 +1,12 @@
 package com.squad2.Locadoraveiculos.dto;
+import com.squad2.Locadoraveiculos.models.Acessorio;
+import com.squad2.Locadoraveiculos.models.ModeloCarro;
+import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.List;
 
+@Data
 public class LerCarroDto {
 
     private Long id;
@@ -15,7 +19,7 @@ public class LerCarroDto {
 
     private BigDecimal valorDiaria;
 
-    private List<Long> listaDeAcessoriosId;
+    private List<Acessorio> acessorios;
 
-    private Long modeloCarroId;
+    private ModeloCarro modeloCarro;
 }
