@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.NoSuchElementException;
 
@@ -31,6 +29,38 @@ public class CarroController {
         }
     }
 
+    @GetMapping
+    public ResponseEntity<?> retornarCarros (){
+        try{
+            var listaDeCarros = carroService.retornarTodosOsCarros();
+            return ResponseEntity.status(HttpStatus.OK).body(listaDeCarros);
+        }catch (NoSuchElementException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<?> retornarCarroPorId (@PathVariable(value = "id") Long id){
+        try{
+            var carroRetornado = carroService.retornarCarroPorId(id);
+            return ResponseEntity.status(HttpStatus.OK).body(carroRetornado);
+        }catch (NoSuchElementException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
 
-
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> deletarCarroPorId (@PathVariable(value = "id") Long id){
+        try{
+            carroService.deletarCarro(id);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }catch (NoSuchElementException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
 }

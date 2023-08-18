@@ -7,11 +7,12 @@ import com.squad2.Locadoraveiculos.models.Carro;
 import com.squad2.Locadoraveiculos.repositories.AcessorioRepository;
 import com.squad2.Locadoraveiculos.repositories.CarroRepository;
 import com.squad2.Locadoraveiculos.repositories.ModeloCarroRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class CarroService {
@@ -24,7 +25,7 @@ public class CarroService {
     private ModeloCarroRepository modeloCarroRepository;
 
 
-    public Carro criarCarro(CriarCarroDTO carroDTO) {
+    public LerCarroDto criarCarro(CriarCarroDTO carroDTO) {
 
 
         var carroCriado = new Carro();
@@ -41,8 +42,35 @@ public class CarroService {
 
         var modeloCarro = modeloCarroRepository.findById(carroDTO.getModeloCarroId()).orElseThrow();
         carroCriado.setModeloCarro(modeloCarro);
-
         carroCriado = carroRepository.save(carroCriado);
-        return carroCriado;
+        var carroDto = new LerCarroDto();
+        BeanUtils.copyProperties(carroCriado,carroDto);
+        return carroDto;
+    }
+
+    public List<LerCarroDto> retornarTodosOsCarros(){
+        var carrosRecuperadosDoBanco = carroRepository.findAll();
+        var listaDeRetornoDto = new ArrayList<LerCarroDto>();
+        var lercarroDto = new LerCarroDto();
+        carrosRecuperadosDoBanco.forEach(carro -> {
+            BeanUtils.copyProperties(carro,lercarroDto);
+            listaDeRetornoDto.add(lercarroDto);
+        });
+        return listaDeRetornoDto;
+    }
+
+    public LerCarroDto retornarCarroPorId(long id){
+
+        var carroRecuperadoDoBanco = retornarCarroDoBancoPorId(id);
+        var lerCarroDto = new LerCarroDto();
+        BeanUtils.copyProperties(carroRecuperadoDoBanco,lerCarroDto);
+        return lerCarroDto;
+    }
+    public void deletarCarro(long id){
+        var carroRecuperadoDoBanco = retornarCarroDoBancoPorId(id);
+        carroRepository.delete(carroRecuperadoDoBanco);
+    }
+    private Carro retornarCarroDoBancoPorId(long id){
+        return carroRepository.findById(id).orElseThrow();
     }
 }
