@@ -5,6 +5,7 @@ import com.squad2.Locadoraveiculos.models.Motorista;
 import com.squad2.Locadoraveiculos.repositories.MotoristaRepository;
 import com.squad2.Locadoraveiculos.services.MotoristaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,12 +19,28 @@ public class MotoristaController {
     @Autowired
     private MotoristaRepository motoristaRepository;
 
-    @PostMapping
+    @GetMapping(
+            produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+    public ResponseEntity<?> getAll() {
+        return service.listarMotoristas();
+    }
+
+    @GetMapping(value = "/{id}",
+            produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+    public ResponseEntity<?> getPessoaById (@PathVariable(value = "id")Long id) {
+        return service.buscarMotoristaPorId(id);
+    }
+
+    @PostMapping(
+            consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE },
+            produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<Motorista> salvar(@RequestBody CriarMotoristaDto motoristaDto) {
         return service.criarMotorista(motoristaDto);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(
+            consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE },
+            produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<Motorista> atualizar(@PathVariable Long id, @RequestBody CriarMotoristaDto motorista) {
         return service.atualizarMotorista(id, motorista);
     }
@@ -31,15 +48,5 @@ public class MotoristaController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) {
         return service.delete(id);
-    }
-
-   @GetMapping
-    public ResponseEntity<?> getAll() {
-        return service.listarMotoristas();
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getPessoaById (@PathVariable(value = "id")Long id) {
-        return service.buscarMotoristaPorId(id);
     }
 }
