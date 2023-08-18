@@ -7,32 +7,55 @@ import com.squad2.Locadoraveiculos.dto.LerMotoristaDto;
 import com.squad2.Locadoraveiculos.exceptions.ResourceNotFoundException;
 import com.squad2.Locadoraveiculos.models.Acessorio;
 import com.squad2.Locadoraveiculos.models.Aluguel;
+import com.squad2.Locadoraveiculos.models.Carro;
 import com.squad2.Locadoraveiculos.models.Motorista;
 import com.squad2.Locadoraveiculos.repositories.AluguelRepository;
+import com.squad2.Locadoraveiculos.repositories.CarroRepository;
+import com.squad2.Locadoraveiculos.repositories.MotoristaRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
+import java.util.*;
 
 @Service
 public class AluguelService {
-
     @Autowired
     private AluguelRepository aluguelRepository;
 
-    public ResponseEntity<Aluguel> criarAluguel(CriarAluguelDto aluguelDTO) {
-        try {
-            var aluguel = new Aluguel();
-            BeanUtils.copyProperties(aluguelDTO, aluguel);
-            var aluguelCriado = aluguelRepository.save(aluguel);
-            return ResponseEntity.status(HttpStatus.CREATED).body(aluguelCriado);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+    @Autowired
+    private MotoristaRepository motoristaRepository;
+    @Autowired
+    private CarroRepository carroRepository;
+
+    @Transactional
+    public Aluguel criarAluguel(CriarAluguelDto aluguelDTO) {
+
+        Long idMotorista = aluguelDTO.getMotorista();
+        Motorista motorista = motoristaRepository
+                .findById(idMotorista)
+                .orElseThrow(() -> new ResourceNotFoundException("Código de cliente inválido."));
+
+        var listaCarros = new ArrayList<Carro>();
+        aluguelDTO.getCarros().forEach(idCarro -> {
+            listaCarros.add(carroRepository.findById(idCarro).orElseThrow());
+        });
+
+        Aluguel aluguel = new Aluguel();
+        aluguel.setDataPedido(LocalDate.now());
+        aluguel.setDataEntrega(aluguelDTO.getDataEntrega());
+        aluguel.setDataDevolucao(aluguelDTO.getDataDevolucao());
+        aluguel.setValorTotal(aluguelDTO.getValorTotal());
+        aluguel.setMotorista(motorista);
+        aluguel.setCarros(listaCarros);
+
+        return aluguelRepository.save(aluguel);
+
     }
 
 

@@ -38,6 +38,7 @@ public class CarroService {
             listaDeAcessorios.add(acessorioRepository.findById(idAcessorio).orElseThrow());
         });
         carroCriado.setAcessorios(listaDeAcessorios);
+
         var modeloCarro = modeloCarroRepository.findById(carroDTO.getModeloCarroId()).orElseThrow();
         carroCriado.setModeloCarro(modeloCarro);
 

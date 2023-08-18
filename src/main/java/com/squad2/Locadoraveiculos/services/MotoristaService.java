@@ -23,13 +23,11 @@ public class MotoristaService {
 
     public ResponseEntity<Motorista> criarMotorista(CriarMotoristaDto motoristaDto) {
 
-        if(repository.existsByEmail(motoristaDto.email())){
-            var motorista = new Motorista();
-            BeanUtils.copyProperties(motoristaDto, motorista);
-            return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(motorista));
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
+
+        var motorista = new Motorista();
+        BeanUtils.copyProperties(motoristaDto, motorista);
+        return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(motorista));
+
 
 
     }
