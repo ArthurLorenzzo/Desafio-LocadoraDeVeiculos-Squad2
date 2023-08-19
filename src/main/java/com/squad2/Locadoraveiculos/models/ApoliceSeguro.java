@@ -22,7 +22,9 @@ public class ApoliceSeguro {
     @Column
     private Boolean protecaoRoubo;
 
-    @OneToOne(mappedBy = "apoliceSeguro")
+    /*@OneToOne(mappedBy = "apoliceSeguro")
     private Aluguel aluguel;
+
+     */
 
 }

@@ -58,5 +58,17 @@ public class AluguelService {
 
     }
 
+    public Optional<Aluguel> retornarAlugueisById (Long id) {
+
+       return aluguelRepository.findById(id);
+
+    }
+
+    public List<Aluguel> retornarTodosAlugueis () {
+
+        return aluguelRepository.findAll();
+
+    }
+
 
 }

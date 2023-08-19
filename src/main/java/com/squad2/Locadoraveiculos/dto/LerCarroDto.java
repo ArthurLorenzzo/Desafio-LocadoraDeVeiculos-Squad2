@@ -1,6 +1,7 @@
 package com.squad2.Locadoraveiculos.dto;
 import com.squad2.Locadoraveiculos.models.Acessorio;
 import com.squad2.Locadoraveiculos.models.ModeloCarro;
+import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
