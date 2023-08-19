@@ -22,10 +22,13 @@ public class MotoristaService {
 
     public ResponseEntity<Motorista> criarMotorista(CriarMotoristaDto motoristaDto) {
 
-
-        var motorista = new Motorista();
-        BeanUtils.copyProperties(motoristaDto, motorista);
-        return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(motorista));
+        if (motoristaDto.email() != null){
+            var motorista = new Motorista();
+            BeanUtils.copyProperties(motoristaDto, motorista);
+            return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(motorista));
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
 
 
 
