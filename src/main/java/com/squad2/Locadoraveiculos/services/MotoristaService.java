@@ -21,9 +21,35 @@ public class MotoristaService {
     private MotoristaRepository repository;
 
     public ResponseEntity<Motorista> criarMotorista(CriarMotoristaDto motoristaDto) {
-        var motorista = new Motorista();
-        BeanUtils.copyProperties(motoristaDto, motorista);
-        return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(motorista));
+
+        if (motoristaDto.email() != null){
+            var motorista = new Motorista();
+            BeanUtils.copyProperties(motoristaDto, motorista);
+            return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(motorista));
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
+
+
+    }
+
+    public ResponseEntity<LerMotoristaDto> buscarMotoristaPorId(long id) {
+        try {
+            Motorista motorista = repository.findById(id).
+                    orElseThrow(() -> new ResourceNotFoundException("Nenhum registro encontrado para este ID!"));
+
+            LerMotoristaDto lerMotoristaDto = new LerMotoristaDto(motorista.getNome(),
+                    motorista.getDataDeNascimento(),
+                    motorista.getCpf(),
+                    motorista.getEmail(),
+                    motorista.getSexo(),
+                    motorista.getNumeroCNH());
+
+            return ResponseEntity.ok(lerMotoristaDto);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     public ResponseEntity<List<LerMotoristaDto>> listarMotoristas() {
@@ -60,8 +86,6 @@ public class MotoristaService {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 }

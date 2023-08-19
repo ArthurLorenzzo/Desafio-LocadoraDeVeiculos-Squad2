@@ -1,5 +1,6 @@
 package com.squad2.Locadoraveiculos.models;
 
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,6 +17,7 @@ public class Fabricante {
     private String nome;
 
     @OneToMany (mappedBy = "fabricante")
+    @JsonIgnore
     private List<ModeloCarro> modelos;
 
 }

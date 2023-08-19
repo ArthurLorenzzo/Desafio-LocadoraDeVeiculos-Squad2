@@ -1,5 +1,8 @@
 package com.squad2.Locadoraveiculos.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -7,7 +10,7 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Objects;
+
 @Entity
 @Data
 public class Carro {
@@ -29,7 +32,8 @@ public class Carro {
     private BigDecimal valorDiaria;
 
     @ManyToOne
-    @JoinColumn(name = "aluguel_id", nullable = false)
+    @JoinColumn(name = "aluguel_id")
+    @JsonIgnore
     private Aluguel aluguel;
 
     @ManyToMany(cascade = { CascadeType.ALL })
@@ -38,6 +42,7 @@ public class Carro {
             joinColumns = { @JoinColumn(name = "carro_id") },
             inverseJoinColumns = { @JoinColumn(name = "acessorio_id") }
     )
+    @JsonManagedReference
     private List<Acessorio> acessorios;
 
     @ManyToOne

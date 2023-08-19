@@ -1,10 +1,15 @@
 package com.squad2.Locadoraveiculos.models;
 
+
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.List;
-import java.util.Objects;
+
 @Entity
 @Table(name = "modelo_carro")
 @Data
@@ -20,11 +25,11 @@ public class ModeloCarro {
     @Enumerated(EnumType.STRING)
     private Categoria categoria;
 
-    @OneToMany(mappedBy = "modeloCarro")
-    private List<Carro> carros;
-
     @ManyToOne
     @JoinColumn(name = "fabricante_id", nullable = false)
     private Fabricante fabricante;
 
+    @OneToMany(mappedBy = "modeloCarro")
+    @JsonIgnore
+    private List<Carro> carros;
 }
