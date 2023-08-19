@@ -1,4 +1,4 @@
-package com.squad2.Locadoraveiculos.dto;
+package com.squad2.Locadoraveiculos.dtos.aluguelDto;
 
 import com.squad2.Locadoraveiculos.models.ApoliceSeguro;
 import com.squad2.Locadoraveiculos.models.Carro;

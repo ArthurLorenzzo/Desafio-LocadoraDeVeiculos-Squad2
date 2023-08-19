@@ -1,16 +1,21 @@
-package com.squad2.Locadoraveiculos.controller;
+package com.squad2.Locadoraveiculos.controllers;
 
-import com.squad2.Locadoraveiculos.dto.CriarFuncionarioDto;
+import com.squad2.Locadoraveiculos.dtos.funcionarioDto.CriarFuncionarioDto;
 import com.squad2.Locadoraveiculos.exceptions.ResourceNotFoundException;
 import com.squad2.Locadoraveiculos.repositories.FuncionarioRepository;
 import com.squad2.Locadoraveiculos.services.FuncionarioService;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.NoSuchElementException;
 
+@Controller
+@RequestMapping("api/funcionarios")
 public class FuncionarioController {
 
     @Autowired

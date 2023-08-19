@@ -1,4 +1,4 @@
-package com.squad2.Locadoraveiculos.dto;
+package com.squad2.Locadoraveiculos.dtos.funcionarioDto;
 
 import com.squad2.Locadoraveiculos.models.Sexo;
 import lombok.Data;

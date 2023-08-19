@@ -1,14 +1,16 @@
 package com.squad2.Locadoraveiculos.services;
 
-import com.squad2.Locadoraveiculos.dto.CriarFuncionarioDto;
-import com.squad2.Locadoraveiculos.dto.LerFuncionarioDto;
+import com.squad2.Locadoraveiculos.dtos.funcionarioDto.CriarFuncionarioDto;
+import com.squad2.Locadoraveiculos.dtos.funcionarioDto.LerFuncionarioDto;
 import com.squad2.Locadoraveiculos.models.Funcionario;
 import com.squad2.Locadoraveiculos.repositories.FuncionarioRepository;
 import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class FuncionarioService {
 
     private FuncionarioRepository repository;

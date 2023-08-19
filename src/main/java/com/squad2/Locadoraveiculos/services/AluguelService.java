@@ -1,5 +1,4 @@
 package com.squad2.Locadoraveiculos.services;
-
 import com.squad2.Locadoraveiculos.dtos.aluguelDto.CriarAluguelDto;
 import com.squad2.Locadoraveiculos.exceptions.ResourceNotFoundException;
 import com.squad2.Locadoraveiculos.models.Aluguel;

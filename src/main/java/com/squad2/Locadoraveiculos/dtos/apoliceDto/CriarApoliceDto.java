@@ -1,4 +1,4 @@
-package com.squad2.Locadoraveiculos.dto;
+package com.squad2.Locadoraveiculos.dtos.apoliceDto;
 
 import lombok.Data;
 
