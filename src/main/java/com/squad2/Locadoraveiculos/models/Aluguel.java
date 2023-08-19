@@ -2,6 +2,7 @@ package com.squad2.Locadoraveiculos.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.cglib.core.Local;
@@ -29,14 +30,16 @@ public class Aluguel {
 
     @ManyToOne
     @JoinColumn(name = "motorista_id", nullable = false)
-    @JsonIgnore
+    @JsonIgnoreProperties("alugueis")
     private Motorista motorista;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "apolice_seguro_id", referencedColumnName = "id")
+    @JsonIgnoreProperties("aluguel")
     private ApoliceSeguro apoliceSeguro;
 
     @OneToMany(mappedBy = "aluguel")
+    @JsonIgnoreProperties("aluguel")
     private List<Carro> carros = new ArrayList<>();
 
 }

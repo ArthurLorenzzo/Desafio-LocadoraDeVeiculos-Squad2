@@ -1,5 +1,5 @@
 package com.squad2.Locadoraveiculos.services;
-import com.squad2.Locadoraveiculos.dto.CriarAcessorioDto;
+import com.squad2.Locadoraveiculos.dtos.acessorioDto.CriarAcessorioDto;
 import com.squad2.Locadoraveiculos.models.Acessorio;
 import com.squad2.Locadoraveiculos.repositories.AcessorioRepository;
 import org.springframework.beans.BeanUtils;

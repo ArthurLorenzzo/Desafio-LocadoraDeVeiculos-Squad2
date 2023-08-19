@@ -1,5 +1,6 @@
 package com.squad2.Locadoraveiculos.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -23,6 +24,7 @@ public class ApoliceSeguro {
     private Boolean protecaoRoubo;
 
     @OneToOne(mappedBy = "apoliceSeguro")
+    @JsonIgnoreProperties("apoliceSeguro")
     private Aluguel aluguel;
 
 }

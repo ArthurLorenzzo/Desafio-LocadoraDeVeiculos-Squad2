@@ -1,6 +1,6 @@
-package com.squad2.Locadoraveiculos.controller;
+package com.squad2.Locadoraveiculos.controllers;
 
-import com.squad2.Locadoraveiculos.dto.CriarCarroDTO;
+import com.squad2.Locadoraveiculos.dtos.carroDto.CriarCarroDto;
 import com.squad2.Locadoraveiculos.services.CarroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,7 @@ public class CarroController {
     private CarroService carroService;
 
     @PostMapping
-    public ResponseEntity<?> cadastrarCarro (@RequestBody CriarCarroDTO carroDTO){
+    public ResponseEntity<?> cadastrarCarro (@RequestBody CriarCarroDto carroDTO){
         try{
             var carroCriado = carroService.criarCarro(carroDTO);
             return ResponseEntity.status(HttpStatus.CREATED).body(carroCriado);

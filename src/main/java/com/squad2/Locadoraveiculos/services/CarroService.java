@@ -1,7 +1,7 @@
 package com.squad2.Locadoraveiculos.services;
 
-import com.squad2.Locadoraveiculos.dto.CriarCarroDTO;
-import com.squad2.Locadoraveiculos.dto.LerCarroDto;
+import com.squad2.Locadoraveiculos.dtos.carroDto.CriarCarroDto;
+import com.squad2.Locadoraveiculos.dtos.carroDto.LerCarroDto;
 import com.squad2.Locadoraveiculos.models.Acessorio;
 import com.squad2.Locadoraveiculos.models.Carro;
 import com.squad2.Locadoraveiculos.repositories.AcessorioRepository;
@@ -25,7 +25,7 @@ public class CarroService {
     private ModeloCarroRepository modeloCarroRepository;
 
 
-    public LerCarroDto criarCarro(CriarCarroDTO carroDTO) {
+    public LerCarroDto criarCarro(CriarCarroDto carroDTO) {
 
 
         var carroCriado = new Carro();

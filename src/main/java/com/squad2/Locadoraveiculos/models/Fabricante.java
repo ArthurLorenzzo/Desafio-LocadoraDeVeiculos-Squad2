@@ -17,7 +17,7 @@ public class Fabricante {
     private String nome;
 
     @OneToMany (mappedBy = "fabricante")
-    @JsonIgnore
+    @JsonIgnoreProperties("fabricante")
     private List<ModeloCarro> modelos;
 
 }

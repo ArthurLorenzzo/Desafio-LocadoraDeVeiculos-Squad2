@@ -1,7 +1,7 @@
 package com.squad2.Locadoraveiculos.services;
 
-import com.squad2.Locadoraveiculos.dto.CriarMotoristaDto;
-import com.squad2.Locadoraveiculos.dto.LerMotoristaDto;
+import com.squad2.Locadoraveiculos.dtos.motoristaDto.CriarMotoristaDto;
+import com.squad2.Locadoraveiculos.dtos.motoristaDto.LerMotoristaDto;
 import com.squad2.Locadoraveiculos.exceptions.ResourceNotFoundException;
 import com.squad2.Locadoraveiculos.models.Motorista;
 import com.squad2.Locadoraveiculos.repositories.MotoristaRepository;

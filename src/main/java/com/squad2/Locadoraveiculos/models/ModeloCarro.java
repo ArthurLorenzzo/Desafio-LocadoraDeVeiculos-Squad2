@@ -2,9 +2,7 @@ package com.squad2.Locadoraveiculos.models;
 
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -27,9 +25,10 @@ public class ModeloCarro {
 
     @ManyToOne
     @JoinColumn(name = "fabricante_id", nullable = false)
+    @JsonIgnoreProperties("modelos")
     private Fabricante fabricante;
 
     @OneToMany(mappedBy = "modeloCarro")
-    @JsonIgnore
+    @JsonIgnoreProperties({"modeloCarro", "acessorios"})
     private List<Carro> carros;
 }

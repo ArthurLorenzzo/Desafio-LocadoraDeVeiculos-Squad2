@@ -1,6 +1,6 @@
-package com.squad2.Locadoraveiculos.controller;
+package com.squad2.Locadoraveiculos.controllers;
 
-import com.squad2.Locadoraveiculos.dto.CriarAcessorioDto;
+import com.squad2.Locadoraveiculos.dtos.acessorioDto.CriarAcessorioDto;
 import com.squad2.Locadoraveiculos.models.Acessorio;
 import com.squad2.Locadoraveiculos.services.AcessorioService;
 import org.springframework.beans.factory.annotation.Autowired;

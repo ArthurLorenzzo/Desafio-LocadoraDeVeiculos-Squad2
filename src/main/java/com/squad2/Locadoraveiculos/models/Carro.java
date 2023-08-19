@@ -1,8 +1,6 @@
 package com.squad2.Locadoraveiculos.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -33,7 +31,7 @@ public class Carro {
 
     @ManyToOne
     @JoinColumn(name = "aluguel_id")
-    @JsonIgnore
+    @JsonIgnoreProperties("carros")
     private Aluguel aluguel;
 
     @ManyToMany(cascade = { CascadeType.ALL })
@@ -42,11 +40,12 @@ public class Carro {
             joinColumns = { @JoinColumn(name = "carro_id") },
             inverseJoinColumns = { @JoinColumn(name = "acessorio_id") }
     )
-    @JsonManagedReference
+    @JsonIgnoreProperties("carros")
     private List<Acessorio> acessorios;
 
     @ManyToOne
     @JoinColumn(name = "modelo_carro_id", nullable = false)
+    @JsonIgnoreProperties("carros")
     private ModeloCarro modeloCarro;
 
 }

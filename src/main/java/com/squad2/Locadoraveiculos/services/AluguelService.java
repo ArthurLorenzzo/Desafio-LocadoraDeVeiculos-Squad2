@@ -1,11 +1,7 @@
 package com.squad2.Locadoraveiculos.services;
 
-import com.squad2.Locadoraveiculos.dto.CriarAcessorioDto;
-import com.squad2.Locadoraveiculos.dto.CriarAluguelDto;
-import com.squad2.Locadoraveiculos.dto.CriarMotoristaDto;
-import com.squad2.Locadoraveiculos.dto.LerMotoristaDto;
+import com.squad2.Locadoraveiculos.dtos.aluguelDto.CriarAluguelDto;
 import com.squad2.Locadoraveiculos.exceptions.ResourceNotFoundException;
-import com.squad2.Locadoraveiculos.models.Acessorio;
 import com.squad2.Locadoraveiculos.models.Aluguel;
 import com.squad2.Locadoraveiculos.models.Carro;
 import com.squad2.Locadoraveiculos.models.Motorista;
@@ -13,11 +9,7 @@ import com.squad2.Locadoraveiculos.repositories.AluguelRepository;
 import com.squad2.Locadoraveiculos.repositories.CarroRepository;
 import com.squad2.Locadoraveiculos.repositories.MotoristaRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;

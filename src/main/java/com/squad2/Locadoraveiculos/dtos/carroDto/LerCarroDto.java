@@ -1,4 +1,5 @@
-package com.squad2.Locadoraveiculos.dto;
+package com.squad2.Locadoraveiculos.dtos.carroDto;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.squad2.Locadoraveiculos.models.Acessorio;
 import com.squad2.Locadoraveiculos.models.ModeloCarro;
 import lombok.Data;
@@ -18,8 +19,8 @@ public class LerCarroDto {
     private String cor;
 
     private BigDecimal valorDiaria;
-
+    @JsonIgnoreProperties({"carros"})
     private List<Acessorio> acessorios;
-
+    @JsonIgnoreProperties({"carros"})
     private ModeloCarro modeloCarro;
 }

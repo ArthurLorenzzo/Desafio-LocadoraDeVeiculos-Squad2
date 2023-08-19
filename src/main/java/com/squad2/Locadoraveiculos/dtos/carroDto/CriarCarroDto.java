@@ -1,4 +1,4 @@
-package com.squad2.Locadoraveiculos.dto;
+package com.squad2.Locadoraveiculos.dtos.carroDto;
 
 import lombok.Data;
 
@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Data
-public class CriarCarroDTO {
+public class CriarCarroDto {
 
     private String placa;
 
