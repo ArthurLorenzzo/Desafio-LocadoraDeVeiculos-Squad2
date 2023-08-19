@@ -38,8 +38,7 @@ public class MotoristaController {
     }
 
    @GetMapping
-    public ResponseEntity<?> getAll() {
-        return service.listarMotoristas();
+    public ResponseEntity<?> getAll() {return service.listarMotoristas();
     }
 
     /*@GetMapping("{id}")
