@@ -1,6 +1,7 @@
 package com.squad2.Locadoraveiculos.controllers;
 
 import com.squad2.Locadoraveiculos.dtos.ApoliceDto;
+import com.squad2.Locadoraveiculos.dtos.MotoristaDto;
 import com.squad2.Locadoraveiculos.services.ApoliceSeguroService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -14,11 +15,12 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/apolices")
-@Tag(name = "Apolice", description = "Endpoints for Managing Drivers")
+@Tag(name = "Apolice", description = "Endpoints for Managing Apolices")
 public class ApoliceController {
 
 
@@ -29,7 +31,7 @@ public class ApoliceController {
             consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE },
             produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     @Operation(summary = "Adds a new Apolice",
-            description = "Adds a new Apolice by passing in a JSON or XML representation of the driver!",
+            description = "Adds a new Apolice by passing in a JSON or XML representation of the apolice!",
             tags = {"Apolice"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
@@ -39,16 +41,9 @@ public class ApoliceController {
                     @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             })
-    public ResponseEntity<?> cadastrarApolice (@RequestBody ApoliceDto apoliceDto) {
+    public ApoliceDto cadastrarApolice (@RequestBody ApoliceDto apoliceDto) {
 
-        try{
-            var apoliceCriada = apoliceSeguroService.criarApolice(apoliceDto);
-            return ResponseEntity.status(HttpStatus.CREATED).body(apoliceCriada);
-        }catch (NoSuchElementException e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-        }
+        return apoliceSeguroService.criarApolice(apoliceDto);
 
     }
 
@@ -67,15 +62,8 @@ public class ApoliceController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             }
     )
-    public ResponseEntity<?> buscarApoliceById (@PathVariable Long id) {
-        try{
-            var apolice = apoliceSeguroService.retornarApolicesById(id);
-            return ResponseEntity.status(HttpStatus.CREATED).body(apolice);
-        }catch (NoSuchElementException e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-        }
+    public ApoliceDto buscarApoliceById (@PathVariable(value = "id") Long id) {
+        return apoliceSeguroService.retornarApolicesById(id);
 
     }
 
@@ -95,15 +83,9 @@ public class ApoliceController {
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             })
-    public ResponseEntity<?> buscarTodosAlugueis () {
-        try{
-            var apolice = apoliceSeguroService.retornarTodasApolices();
-            return ResponseEntity.status(HttpStatus.CREATED).body(apolice);
-        }catch (NoSuchElementException e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-        }
+    public ResponseEntity<List<ApoliceDto>> buscarTodosAlugueis () {
+        List<ApoliceDto> listaApoliceDto = apoliceSeguroService.retornarTodasApolices();
+        return ResponseEntity.ok(listaApoliceDto);
 
     }
 
@@ -119,15 +101,9 @@ public class ApoliceController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             }
     )
-    public ResponseEntity<?> deletarApolice (@PathVariable Long id) {
-        try{
-            apoliceSeguroService.deletarApolice(id);
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        }catch (NoSuchElementException e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-        }
+    public ResponseEntity<?> deletarApolice (@PathVariable(value = "id") Long id) {
+        apoliceSeguroService.deletarApolice(id);
+        return ResponseEntity.noContent().build();
 
     }
 

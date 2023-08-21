@@ -2,6 +2,7 @@ package com.squad2.Locadoraveiculos.controllers;
 
 
 import com.squad2.Locadoraveiculos.dtos.AluguelDto;
+import com.squad2.Locadoraveiculos.dtos.MotoristaDto;
 import com.squad2.Locadoraveiculos.services.AluguelService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -16,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 
@@ -42,17 +44,9 @@ public class AluguelController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             }
     )
-    public ResponseEntity<?> cadastrarAluguel (@RequestBody AluguelDto aluguelDto) {
+    public AluguelDto cadastrarAluguel (@RequestBody AluguelDto aluguelDto) {
 
-        try{
-            var alugelCriado = aluguelService.criarAluguel(aluguelDto);
-            return ResponseEntity.status(HttpStatus.CREATED).body(alugelCriado);
-        }catch (NoSuchElementException e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-        }
-
+        return aluguelService.criarAluguel(aluguelDto);
     }
 
     @GetMapping(value = "/{id}",
@@ -70,15 +64,9 @@ public class AluguelController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             }
     )
-    public ResponseEntity<?> buscarAluguelById (@PathVariable Long id) {
-        try{
-            var aluguel = aluguelService.retornarAlugueisById(id);
-            return ResponseEntity.status(HttpStatus.CREATED).body(aluguel);
-        }catch (NoSuchElementException e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-        }
+    public AluguelDto buscarAluguelById (@PathVariable(value = "id") Long id) {
+
+        return aluguelService.retornarAlugueisById(id);
 
     }
 
@@ -99,15 +87,10 @@ public class AluguelController {
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             })
-    public ResponseEntity<?> buscarTodosAlugueis () {
-        try{
-            var aluguel = aluguelService.retornarTodosAlugueis();
-            return ResponseEntity.status(HttpStatus.CREATED).body(aluguel);
-        }catch (NoSuchElementException e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-        }
+    public ResponseEntity<List<AluguelDto>> buscarTodosAlugueis () {
+
+        List<AluguelDto> listaAluguelDto = aluguelService.retornarTodosAlugueis();
+        return ResponseEntity.ok(listaAluguelDto);
 
     }
 
@@ -123,15 +106,10 @@ public class AluguelController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             }
     )
-    public ResponseEntity<?> deletarAlugueis (@PathVariable Long id) {
-        try{
-            aluguelService.deletarAluguel(id);
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        }catch (NoSuchElementException e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-        }
+    public ResponseEntity<?> deletarAlugueis (@PathVariable(value = "id") Long id) {
+
+        aluguelService.deletarAluguel(id);
+        return ResponseEntity.noContent().build();
 
     }
 

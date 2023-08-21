@@ -1,21 +1,25 @@
 package com.squad2.Locadoraveiculos.dtos;
 
+import com.squad2.Locadoraveiculos.models.Carro;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
 @Data
-@Builder
 public class AluguelDto {
 
-    //private LocalDate dataPedido;
+
 
     @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     private Long id;
+
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
+    private LocalDate dataPedido;
 
     private Date dataEntrega;
 
@@ -27,5 +31,5 @@ public class AluguelDto {
 
     private Long apolicesSeguro;
 
-    private List<Long> carros;
+    private List<Carro> carros;
 }

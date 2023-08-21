@@ -1,14 +1,19 @@
 package com.squad2.Locadoraveiculos.services;
 
 import com.squad2.Locadoraveiculos.dtos.ApoliceDto;
+import com.squad2.Locadoraveiculos.dtos.MotoristaDto;
+import com.squad2.Locadoraveiculos.exceptions.ResourceNotFoundException;
 import com.squad2.Locadoraveiculos.models.ApoliceSeguro;
+import com.squad2.Locadoraveiculos.models.Motorista;
 import com.squad2.Locadoraveiculos.repositories.ApoliceSeguroRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ApoliceSeguroService {
@@ -16,37 +21,50 @@ public class ApoliceSeguroService {
     private ApoliceSeguroRepository apoliceSeguroRepository;
 
     @Transactional
-    public ApoliceSeguro criarApolice (ApoliceDto apoliceDto) {
+    public ApoliceDto criarApolice (ApoliceDto apoliceDto) {
 
 
         ApoliceSeguro apoliceSeguro = new ApoliceSeguro();
-        apoliceSeguro.setValorFranquia(apoliceDto.getValorFranquia());
-        apoliceSeguro.setProtecaoRoubo(apoliceDto.isProtecaoRoubo());
-        apoliceSeguro.setProtecaoTerceiro(apoliceDto.isProtecaoTerceiro());
-        apoliceSeguro.setProtecaoCausasNaturais(apoliceDto.isProtecaoCausasNaturais());
+        BeanUtils.copyProperties(apoliceDto, apoliceSeguro);
 
-        return apoliceSeguroRepository.save(apoliceSeguro);
+        apoliceSeguro = apoliceSeguroRepository.save(apoliceSeguro);
 
-    }
+        ApoliceDto apoliceCriada = new ApoliceDto();
+        BeanUtils.copyProperties(apoliceSeguro, apoliceCriada);
 
-    public Optional<ApoliceSeguro> retornarApolicesById (Long id) {
-
-        return apoliceSeguroRepository.findById(id);
+        return apoliceCriada;
 
     }
 
-    public List<ApoliceSeguro> retornarTodasApolices () {
+    public ApoliceDto retornarApolicesById (Long id) {
 
-        return apoliceSeguroRepository.findAll();
+        ApoliceSeguro apolice = apoliceSeguroRepository.findById(id).
+                orElseThrow(() -> new ResourceNotFoundException("Nenhum registro encontrado para este ID!"));
+
+        ApoliceDto apoliceDto = new ApoliceDto();
+        BeanUtils.copyProperties(apolice, apoliceDto);
+
+        return apoliceDto;
+    }
+
+    public List<ApoliceDto> retornarTodasApolices () {
+
+        List<ApoliceSeguro> listaApolice = apoliceSeguroRepository.findAll();
+        return listaApolice.stream()
+                .map(apolice -> {
+                    ApoliceDto apoliceDto = new ApoliceDto();
+                    BeanUtils.copyProperties(apolice, apoliceDto);
+                    return apoliceDto;
+                })
+                .collect(Collectors.toList());
 
     }
 
     public void deletarApolice ( Long id ){
-        apoliceSeguroRepository.findById(id)
-                .map( apolice -> {
-                    apoliceSeguroRepository.delete(apolice );
-                    return apolice;
-                });
+
+        var entity = apoliceSeguroRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Nenhum registro encontrado para este ID!"));
+        apoliceSeguroRepository.delete(entity);
     }
 
 }
