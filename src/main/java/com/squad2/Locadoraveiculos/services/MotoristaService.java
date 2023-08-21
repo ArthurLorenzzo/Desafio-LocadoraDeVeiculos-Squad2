@@ -26,7 +26,7 @@ public class MotoristaService {
 
         if (motoristaDto == null) throw new RequiredObjectIsNullException();
 
-        logger.info("Creating one driver!");
+        logger.info("Criando um motorista!");
 
         if (emailExists(motoristaDto.getEmail()))
             throw new DuplicateEmailException("Erro! Email já registrado.");
@@ -44,7 +44,7 @@ public class MotoristaService {
 
     public MotoristaDto findById(Long id) {
 
-        logger.info("Finding one driver!");
+        logger.info("Buscando um motorista!");
 
         Motorista motorista = repository.findById(id).
                 orElseThrow(() -> new ResourceNotFoundException("Nenhum registro encontrado para este ID!"));
@@ -57,7 +57,7 @@ public class MotoristaService {
 
     public List<MotoristaDto> findAll() {
 
-        logger.info("Finding all drivers!");
+        logger.info("Buscando todos os motoristas!");
 
         List<Motorista> listaMotorista = repository.findAll();
         return listaMotorista.stream()
@@ -73,7 +73,7 @@ public class MotoristaService {
 
         if (motoristaDto == null) throw new RequiredObjectIsNullException();
 
-        logger.info("Updating one driver!");
+        logger.info("Atualizando um motorista!");
 
         var entity = repository.findById(motoristaDto.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Nenhum registro encontrado para este ID!"));
@@ -90,7 +90,7 @@ public class MotoristaService {
 
     public void delete(Long id) {
 
-        logger.info("Deleting one driver!");
+        logger.info("Deletando um motorista!");
 
         var entity = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Nenhum registro encontrado para este ID!"));
