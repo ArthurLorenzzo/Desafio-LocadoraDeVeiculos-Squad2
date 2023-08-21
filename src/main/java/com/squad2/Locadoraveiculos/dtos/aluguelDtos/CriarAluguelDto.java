@@ -22,9 +22,9 @@ public class CriarAluguelDto {
 
     private BigDecimal valorTotal;
 
-    private Long motorista;
+    private Long motorista_id;
 
-    private Long apolicesSeguro;
+    private Long apolicesSeguro_id;
 
-    private List<Long> carros;
+    private List<Long> carros_id;
 }

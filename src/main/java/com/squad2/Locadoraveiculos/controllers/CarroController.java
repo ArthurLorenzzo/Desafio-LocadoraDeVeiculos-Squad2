@@ -41,7 +41,7 @@ public class CarroController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             }
     )
-    public ResponseEntity<CarroDto> cadastrarCarro (@RequestBody CarroDto carroDTO){
+    public ResponseEntity<LerCarroDto> cadastrarCarro (@RequestBody CarroDto carroDTO){
         var carroCriado = carroService.criarCarro(carroDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(carroCriado);
     }

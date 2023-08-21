@@ -2,8 +2,13 @@ package com.squad2.Locadoraveiculos.services;
 import com.squad2.Locadoraveiculos.dtos.aluguelDtos.CriarAluguelDto;
 import com.squad2.Locadoraveiculos.dtos.aluguelDtos.LerAluguelDto;
 import com.squad2.Locadoraveiculos.exceptions.ResourceNotFoundException;
+import com.squad2.Locadoraveiculos.models.Acessorio;
 import com.squad2.Locadoraveiculos.models.Aluguel;
+import com.squad2.Locadoraveiculos.models.Carro;
 import com.squad2.Locadoraveiculos.repositories.AluguelRepository;
+import com.squad2.Locadoraveiculos.repositories.ApoliceSeguroRepository;
+import com.squad2.Locadoraveiculos.repositories.CarroRepository;
+import com.squad2.Locadoraveiculos.repositories.MotoristaRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,20 +23,43 @@ public class AluguelService {
     @Autowired
     private AluguelRepository aluguelRepository;
 
+    @Autowired
+    private MotoristaRepository motoristaRepository;
+
+    @Autowired
+    private CarroRepository carroRepository;
+
+    @Autowired
+    private ApoliceSeguroRepository apoliceSeguroRepository;
+
     private Logger logger = Logger.getLogger(AluguelService.class.getName());
 
-    public CriarAluguelDto criarAluguel(CriarAluguelDto criarAluguelDTO) {
+    public LerAluguelDto criarAluguel(CriarAluguelDto criarAluguelDTO) {
 
-        Aluguel aluguel = new Aluguel();
-        BeanUtils.copyProperties(criarAluguelDTO, aluguel, "dataPedido");
-        aluguel.setDataPedido(LocalDate.now());
+        Aluguel aluguelCriado = new Aluguel();
+        BeanUtils.copyProperties(criarAluguelDTO, aluguelCriado, "dataPedido", "motorista_id", "apolicesSeguro_id", "carros_id");
+        aluguelCriado.setDataPedido(LocalDate.now());
 
-        aluguel = aluguelRepository.save(aluguel);
+        aluguelCriado.setMotorista(motoristaRepository.findById(criarAluguelDTO.getMotorista_id())
+                .orElseThrow(ResourceNotFoundException::new));
 
-        CriarAluguelDto aluguelCriado = new CriarAluguelDto();
-        BeanUtils.copyProperties(aluguel, aluguelCriado);
+        aluguelCriado.setApoliceSeguro(apoliceSeguroRepository.findById(criarAluguelDTO.getApolicesSeguro_id())
+                .orElseThrow(ResourceNotFoundException::new));
 
-        return aluguelCriado;
+        List<Carro> listaCarro = criarAluguelDTO
+                .getCarros_id()
+                .stream()
+                .map(idCarro -> {
+                        var carro = carroRepository.findById(idCarro)
+                                .orElseThrow(ResourceNotFoundException::new);
+                        return carro;
+                }).toList();
+        aluguelCriado.setCarros(listaCarro);
+
+        LerAluguelDto lerAluguelDto = new LerAluguelDto();
+        aluguelCriado = aluguelRepository.save(aluguelCriado);
+        BeanUtils.copyProperties(aluguelCriado, lerAluguelDto);
+        return lerAluguelDto;
 
     }
 
@@ -44,7 +72,6 @@ public class AluguelService {
 
         LerAluguelDto lerAluguelDto = new LerAluguelDto();
         BeanUtils.copyProperties(aluguel, lerAluguelDto);
-
         return lerAluguelDto;
     }
 

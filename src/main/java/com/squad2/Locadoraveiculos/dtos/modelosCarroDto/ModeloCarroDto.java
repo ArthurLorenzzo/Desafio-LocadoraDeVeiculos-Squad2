@@ -13,9 +13,6 @@ import java.util.List;
 @Data
 public class ModeloCarroDto {
 
-    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
-    private Long id;
-
     @Column
     private String descricao;
 
@@ -23,11 +20,6 @@ public class ModeloCarroDto {
     private Categoria categoria;
 
     @JsonIgnoreProperties("modelos")
-    private Long fabricante;
-
-
-    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
-    @JsonIgnoreProperties({"modeloCarro", "acessorios"})
-    private List<Long> carros;
+    private Long fabricante_id;
 
 }
