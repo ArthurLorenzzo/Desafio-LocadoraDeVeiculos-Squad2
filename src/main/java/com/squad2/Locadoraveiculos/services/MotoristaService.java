@@ -9,15 +9,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @Service
 public class MotoristaService {
 
+    private Logger logger = Logger.getLogger(MotoristaService.class.getName());
+
     @Autowired
     private MotoristaRepository repository;
 
     public MotoristaDto create(MotoristaDto motoristaDto) {
+
+        logger.info("Creating one driver!");
 
         Motorista motorista = new Motorista();
         BeanUtils.copyProperties(motoristaDto, motorista);
@@ -32,6 +37,8 @@ public class MotoristaService {
 
     public MotoristaDto findById(Long id) {
 
+        logger.info("Finding one driver!");
+
         Motorista motorista = repository.findById(id).
                 orElseThrow(() -> new ResourceNotFoundException("Nenhum registro encontrado para este ID!"));
 
@@ -42,6 +49,8 @@ public class MotoristaService {
     }
 
     public List<MotoristaDto> findAll() {
+
+        logger.info("Finding all drivers!");
 
         List<Motorista> listaMotorista = repository.findAll();
         return listaMotorista.stream()
@@ -55,6 +64,8 @@ public class MotoristaService {
 
     public MotoristaDto update(MotoristaDto motoristaDto) {
 
+        logger.info("Updating one driver!");
+
         var entity = repository.findById(motoristaDto.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Nenhum registro encontrado para este ID!"));
 
@@ -66,6 +77,8 @@ public class MotoristaService {
     }
 
     public void delete(Long id) {
+
+        logger.info("Deleting one driver!");
 
         var entity = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Nenhum registro encontrado para este ID!"));

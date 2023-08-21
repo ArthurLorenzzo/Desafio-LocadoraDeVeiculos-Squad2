@@ -1,8 +1,6 @@
 package com.squad2.Locadoraveiculos.controllers;
 
 import com.squad2.Locadoraveiculos.dtos.carroDto.CriarCarroDto;
-import com.squad2.Locadoraveiculos.dtos.motoristaDto.CriarMotoristaDto;
-import com.squad2.Locadoraveiculos.dtos.motoristaDto.LerMotoristaDto;
 import com.squad2.Locadoraveiculos.services.CarroService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;

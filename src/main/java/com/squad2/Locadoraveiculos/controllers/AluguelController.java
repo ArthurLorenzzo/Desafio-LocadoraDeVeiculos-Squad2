@@ -2,8 +2,6 @@ package com.squad2.Locadoraveiculos.controllers;
 
 
 import com.squad2.Locadoraveiculos.dtos.aluguelDto.CriarAluguelDto;
-import com.squad2.Locadoraveiculos.dtos.motoristaDto.CriarMotoristaDto;
-import com.squad2.Locadoraveiculos.dtos.motoristaDto.LerMotoristaDto;
 import com.squad2.Locadoraveiculos.services.AluguelService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -16,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-
 import org.springframework.web.bind.annotation.*;
 
 import java.util.NoSuchElementException;

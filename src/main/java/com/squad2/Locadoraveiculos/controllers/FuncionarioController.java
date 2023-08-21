@@ -1,8 +1,8 @@
 package com.squad2.Locadoraveiculos.controllers;
 
 import com.squad2.Locadoraveiculos.dtos.funcionarioDto.CriarFuncionarioDto;
-import com.squad2.Locadoraveiculos.dtos.motoristaDto.CriarMotoristaDto;
-import com.squad2.Locadoraveiculos.dtos.motoristaDto.LerMotoristaDto;
+import com.squad2.Locadoraveiculos.dtos.motoristaDto.MotoristaDto;
+import com.squad2.Locadoraveiculos.dtos.motoristaDto.MotoristaDto;
 import com.squad2.Locadoraveiculos.exceptions.ResourceNotFoundException;
 import com.squad2.Locadoraveiculos.repositories.FuncionarioRepository;
 import com.squad2.Locadoraveiculos.services.FuncionarioService;
@@ -42,7 +42,7 @@ public class FuncionarioController {
             tags = {"Employee"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = CriarMotoristaDto.class))
+                            content = @Content(schema = @Schema(implementation = MotoristaDto.class))
                     ),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
@@ -67,7 +67,7 @@ public class FuncionarioController {
             tags = {"Employee"},
             responses = {
                     @ApiResponse(description = "Updated", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = CriarMotoristaDto.class))
+                            content = @Content(schema = @Schema(implementation = MotoristaDto.class))
                     ),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
@@ -119,7 +119,7 @@ public class FuncionarioController {
                             content = {
                                     @Content(
                                             mediaType = "application/json",
-                                            array = @ArraySchema(schema = @Schema(implementation = LerMotoristaDto.class))
+                                            array = @ArraySchema(schema = @Schema(implementation = MotoristaDto.class))
                                     )
                             }),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),

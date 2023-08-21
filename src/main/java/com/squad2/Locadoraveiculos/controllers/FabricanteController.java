@@ -1,8 +1,7 @@
 package com.squad2.Locadoraveiculos.controllers;
 
 import com.squad2.Locadoraveiculos.dtos.fabricanteDto.CriarFabricanteDto;
-import com.squad2.Locadoraveiculos.dtos.motoristaDto.CriarMotoristaDto;
-import com.squad2.Locadoraveiculos.dtos.motoristaDto.LerMotoristaDto;
+import com.squad2.Locadoraveiculos.dtos.motoristaDto.MotoristaDto;
 import com.squad2.Locadoraveiculos.models.Fabricante;
 import com.squad2.Locadoraveiculos.services.FabricanteService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -34,7 +33,7 @@ public class FabricanteController {
             tags = {"Producer"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = CriarMotoristaDto.class))
+                            content = @Content(schema = @Schema(implementation = MotoristaDto.class))
                     ),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
@@ -52,7 +51,7 @@ public class FabricanteController {
                             content = {
                                     @Content(
                                             mediaType = "application/json",
-                                            array = @ArraySchema(schema = @Schema(implementation = LerMotoristaDto.class))
+                                            array = @ArraySchema(schema = @Schema(implementation = MotoristaDto.class))
                                     )
                             }),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -71,7 +70,7 @@ public class FabricanteController {
             tags = {"Producer"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = LerMotoristaDto.class))
+                            content = @Content(schema = @Schema(implementation = MotoristaDto.class))
                     ),
                     @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
