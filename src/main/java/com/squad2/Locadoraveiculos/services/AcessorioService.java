@@ -1,5 +1,5 @@
 package com.squad2.Locadoraveiculos.services;
-import com.squad2.Locadoraveiculos.dtos.acessorioDto.AcessorioDto;
+import com.squad2.Locadoraveiculos.dtos.AcessorioDto;
 import com.squad2.Locadoraveiculos.exceptions.ResourceNotFoundException;
 import com.squad2.Locadoraveiculos.models.Acessorio;
 import com.squad2.Locadoraveiculos.repositories.AcessorioRepository;

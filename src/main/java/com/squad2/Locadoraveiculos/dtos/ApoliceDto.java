@@ -1,11 +1,15 @@
-package com.squad2.Locadoraveiculos.dtos.apoliceDto;
+package com.squad2.Locadoraveiculos.dtos;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.math.BigDecimal;
 
 @Data
-public class CriarApoliceDto {
+public class ApoliceDto {
+
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
+    private Long id;
 
     private BigDecimal valorFranquia;
 

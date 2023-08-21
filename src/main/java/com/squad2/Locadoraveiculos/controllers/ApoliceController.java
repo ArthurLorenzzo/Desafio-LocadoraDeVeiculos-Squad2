@@ -1,6 +1,6 @@
 package com.squad2.Locadoraveiculos.controllers;
 
-import com.squad2.Locadoraveiculos.dtos.apoliceDto.CriarApoliceDto;
+import com.squad2.Locadoraveiculos.dtos.ApoliceDto;
 import com.squad2.Locadoraveiculos.services.ApoliceSeguroService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -33,13 +33,13 @@ public class ApoliceController {
             tags = {"Apolice"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = CriarApoliceDto.class))
+                            content = @Content(schema = @Schema(implementation = ApoliceDto.class))
                     ),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             })
-    public ResponseEntity<?> cadastrarApolice (@RequestBody CriarApoliceDto apoliceDto) {
+    public ResponseEntity<?> cadastrarApolice (@RequestBody ApoliceDto apoliceDto) {
 
         try{
             var apoliceCriada = apoliceSeguroService.criarApolice(apoliceDto);
@@ -58,7 +58,7 @@ public class ApoliceController {
             tags = {"Apolice"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = CriarApoliceDto.class))
+                            content = @Content(schema = @Schema(implementation = ApoliceDto.class))
                     ),
                     @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -87,7 +87,7 @@ public class ApoliceController {
                             content = {
                                     @Content(
                                             mediaType = "application/json",
-                                            array = @ArraySchema(schema = @Schema(implementation = CriarApoliceDto.class))
+                                            array = @ArraySchema(schema = @Schema(implementation = ApoliceDto.class))
                                     )
                             }),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),

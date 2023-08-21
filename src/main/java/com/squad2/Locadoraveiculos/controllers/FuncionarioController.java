@@ -1,8 +1,7 @@
 package com.squad2.Locadoraveiculos.controllers;
 
-import com.squad2.Locadoraveiculos.dtos.funcionarioDto.CriarFuncionarioDto;
-import com.squad2.Locadoraveiculos.dtos.motoristaDto.MotoristaDto;
-import com.squad2.Locadoraveiculos.dtos.motoristaDto.MotoristaDto;
+import com.squad2.Locadoraveiculos.dtos.FuncionarioDto;
+import com.squad2.Locadoraveiculos.dtos.MotoristaDto;
 import com.squad2.Locadoraveiculos.exceptions.ResourceNotFoundException;
 import com.squad2.Locadoraveiculos.repositories.FuncionarioRepository;
 import com.squad2.Locadoraveiculos.services.FuncionarioService;
@@ -48,7 +47,7 @@ public class FuncionarioController {
                     @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             })
-    public ResponseEntity<?> criar (@RequestBody CriarFuncionarioDto funcionarioDto) {
+    public ResponseEntity<?> criar (@RequestBody FuncionarioDto funcionarioDto) {
         try{
             var funcionarioCriado = service.criarFuncionario(funcionarioDto);
             return ResponseEntity.status(HttpStatus.CREATED).body(funcionarioCriado);
@@ -75,7 +74,7 @@ public class FuncionarioController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             }
     )
-    public ResponseEntity<?> atualizar(@PathVariable Long id, @RequestBody CriarFuncionarioDto funcionario) {
+    public ResponseEntity<?> atualizar(@PathVariable Long id, @RequestBody FuncionarioDto funcionario) {
         try{
         var funcionarioAtualizado = service.atualizarFuncionario(id, funcionario);
         return ResponseEntity.status(HttpStatus.OK).body(funcionarioAtualizado);

@@ -1,5 +1,5 @@
 package com.squad2.Locadoraveiculos.services;
-import com.squad2.Locadoraveiculos.dtos.aluguelDto.CriarAluguelDto;
+import com.squad2.Locadoraveiculos.dtos.AluguelDto;
 import com.squad2.Locadoraveiculos.exceptions.ResourceNotFoundException;
 import com.squad2.Locadoraveiculos.models.Aluguel;
 import com.squad2.Locadoraveiculos.models.ApoliceSeguro;
@@ -30,7 +30,7 @@ public class AluguelService {
     private ApoliceSeguroRepository apoliceSeguroRepository;
 
     @Transactional
-    public Aluguel criarAluguel(CriarAluguelDto aluguelDTO) {
+    public Aluguel criarAluguel(AluguelDto aluguelDTO) {
 
         Long idMotorista = aluguelDTO.getMotorista();
         Motorista motorista = motoristaRepository

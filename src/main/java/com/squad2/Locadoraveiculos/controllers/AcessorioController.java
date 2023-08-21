@@ -1,6 +1,6 @@
 package com.squad2.Locadoraveiculos.controllers;
 
-import com.squad2.Locadoraveiculos.dtos.acessorioDto.AcessorioDto;
+import com.squad2.Locadoraveiculos.dtos.AcessorioDto;
 import com.squad2.Locadoraveiculos.services.AcessorioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;

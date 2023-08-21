@@ -1,6 +1,6 @@
 package com.squad2.Locadoraveiculos.services;
 
-import com.squad2.Locadoraveiculos.dtos.motoristaDto.MotoristaDto;
+import com.squad2.Locadoraveiculos.dtos.MotoristaDto;
 import com.squad2.Locadoraveiculos.exceptions.DuplicateEmailException;
 import com.squad2.Locadoraveiculos.exceptions.RequiredObjectIsNullException;
 import com.squad2.Locadoraveiculos.exceptions.ResourceNotFoundException;

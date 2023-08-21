@@ -1,19 +1,14 @@
 package com.squad2.Locadoraveiculos.services;
 
-import com.squad2.Locadoraveiculos.dtos.fabricanteDto.FabricanteDto;
-import com.squad2.Locadoraveiculos.dtos.modeloCarroDto.ModeloCarroDto;
+import com.squad2.Locadoraveiculos.dtos.ModeloCarroDto;
 import com.squad2.Locadoraveiculos.exceptions.ResourceNotFoundException;
 import com.squad2.Locadoraveiculos.models.ModeloCarro;
-import com.squad2.Locadoraveiculos.repositories.FabricanteRepository;
 import com.squad2.Locadoraveiculos.repositories.ModeloCarroRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ModeloCarroService {

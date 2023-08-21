@@ -1,7 +1,7 @@
 package com.squad2.Locadoraveiculos.controllers;
 
-import com.squad2.Locadoraveiculos.dtos.fabricanteDto.FabricanteDto;
-import com.squad2.Locadoraveiculos.dtos.motoristaDto.MotoristaDto;
+import com.squad2.Locadoraveiculos.dtos.FabricanteDto;
+import com.squad2.Locadoraveiculos.dtos.MotoristaDto;
 import com.squad2.Locadoraveiculos.models.Fabricante;
 import com.squad2.Locadoraveiculos.services.FabricanteService;
 import io.swagger.v3.oas.annotations.Operation;
