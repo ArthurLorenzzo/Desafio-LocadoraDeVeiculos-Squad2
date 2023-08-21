@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -21,7 +22,7 @@ public abstract class Pessoa {
 
     @Column
     @NotNull
-    private Date dataDeNascimento;
+    private LocalDate dataDeNascimento;
 
     @Column
     @NotNull

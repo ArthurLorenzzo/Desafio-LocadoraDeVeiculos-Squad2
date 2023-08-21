@@ -4,7 +4,6 @@ import com.squad2.Locadoraveiculos.exceptions.DuplicateEmailException;
 import com.squad2.Locadoraveiculos.exceptions.ExceptionResponse;
 import com.squad2.Locadoraveiculos.exceptions.RequiredObjectIsNullException;
 import com.squad2.Locadoraveiculos.exceptions.ResourceNotFoundException;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
