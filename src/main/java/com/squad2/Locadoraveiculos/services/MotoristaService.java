@@ -1,6 +1,8 @@
 package com.squad2.Locadoraveiculos.services;
 
 import com.squad2.Locadoraveiculos.dtos.motoristaDto.MotoristaDto;
+import com.squad2.Locadoraveiculos.exceptions.DuplicateEmailException;
+import com.squad2.Locadoraveiculos.exceptions.RequiredObjectIsNullException;
 import com.squad2.Locadoraveiculos.exceptions.ResourceNotFoundException;
 import com.squad2.Locadoraveiculos.models.Motorista;
 import com.squad2.Locadoraveiculos.repositories.MotoristaRepository;
@@ -22,7 +24,12 @@ public class MotoristaService {
 
     public MotoristaDto create(MotoristaDto motoristaDto) {
 
+        if (motoristaDto == null) throw new RequiredObjectIsNullException();
+
         logger.info("Creating one driver!");
+
+        if (emailExists(motoristaDto.getEmail()))
+            throw new DuplicateEmailException("Erro! Email já registrado.");
 
         Motorista motorista = new Motorista();
         BeanUtils.copyProperties(motoristaDto, motorista);
@@ -64,10 +71,15 @@ public class MotoristaService {
 
     public MotoristaDto update(MotoristaDto motoristaDto) {
 
+        if (motoristaDto == null) throw new RequiredObjectIsNullException();
+
         logger.info("Updating one driver!");
 
         var entity = repository.findById(motoristaDto.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Nenhum registro encontrado para este ID!"));
+
+        if (!entity.getEmail().equals(motoristaDto.getEmail()) && emailExists(motoristaDto.getEmail()))
+            throw new DuplicateEmailException("Erro! Email já registrado.");
 
         BeanUtils.copyProperties(motoristaDto, entity);
 
@@ -83,5 +95,10 @@ public class MotoristaService {
         var entity = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Nenhum registro encontrado para este ID!"));
         repository.delete(entity);
+    }
+
+    private boolean emailExists(String email) {
+        Long count = repository.countByEmail(email);
+        return count > 0;
     }
 }

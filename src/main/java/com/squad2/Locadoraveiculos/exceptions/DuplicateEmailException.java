@@ -5,13 +5,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.io.Serial;
 
-@ResponseStatus(HttpStatus.NOT_FOUND)
-public class ResourceNotFoundException extends RuntimeException {
+@ResponseStatus(HttpStatus.BAD_REQUEST)
+public class DuplicateEmailException extends RuntimeException {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
-    public ResourceNotFoundException(String msg) {
+    public DuplicateEmailException(String msg) {
         super(msg);
     }
 }
