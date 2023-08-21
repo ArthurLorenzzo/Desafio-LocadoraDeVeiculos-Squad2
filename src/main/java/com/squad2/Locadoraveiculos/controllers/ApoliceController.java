@@ -1,10 +1,11 @@
 package com.squad2.Locadoraveiculos.controllers;
 
-
 import com.squad2.Locadoraveiculos.dtos.aluguelDto.CriarAluguelDto;
+import com.squad2.Locadoraveiculos.dtos.apoliceDto.CriarApoliceDto;
 import com.squad2.Locadoraveiculos.dtos.motoristaDto.CriarMotoristaDto;
 import com.squad2.Locadoraveiculos.dtos.motoristaDto.LerMotoristaDto;
 import com.squad2.Locadoraveiculos.services.AluguelService;
+import com.squad2.Locadoraveiculos.services.ApoliceSeguroService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -15,41 +16,38 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-
 import org.springframework.web.bind.annotation.*;
 
 import java.util.NoSuchElementException;
 
+@RestController
+@RequestMapping("/api/apolices")
+@Tag(name = "Apolice", description = "Endpoints for Managing Drivers")
+public class ApoliceController {
 
-@Controller
-@RequestMapping("/api/alugueis")
-@Tag(name = "Rent", description = "Endpoints for Managing Rents")
-public class AluguelController {
 
     @Autowired
-    private AluguelService aluguelService;
+    private ApoliceSeguroService apoliceSeguroService;
 
     @PostMapping(
             consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE },
             produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-    @Operation(summary = "Adds a new Rent",
-            description = "Adds a new Rent by passing in a JSON or XML representation of the rent!",
-            tags = {"Rent"},
+    @Operation(summary = "Adds a new Apolice",
+            description = "Adds a new Apolice by passing in a JSON or XML representation of the driver!",
+            tags = {"Apolice"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = CriarAluguelDto.class))
+                            content = @Content(schema = @Schema(implementation = CriarApoliceDto.class))
                     ),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
-            }
-    )
-    public ResponseEntity<?> cadastrarAluguel (@RequestBody CriarAluguelDto aluguelDto) {
+            })
+    public ResponseEntity<?> cadastrarApolice (@RequestBody CriarApoliceDto apoliceDto) {
 
         try{
-            var alugelCriado = aluguelService.criarAluguel(aluguelDto);
-            return ResponseEntity.status(HttpStatus.CREATED).body(alugelCriado);
+            var apoliceCriada = apoliceSeguroService.criarApolice(apoliceDto);
+            return ResponseEntity.status(HttpStatus.CREATED).body(apoliceCriada);
         }catch (NoSuchElementException e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }catch (Exception e){
@@ -60,11 +58,11 @@ public class AluguelController {
 
     @GetMapping(value = "/{id}",
             produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-    @Operation(summary = "Finds a Rent", description = "Finds a Rent",
-            tags = {"Rent"},
+    @Operation(summary = "Finds a Apolice", description = "Finds a Apolice",
+            tags = {"Apolice"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = CriarAluguelDto.class))
+                            content = @Content(schema = @Schema(implementation = CriarApoliceDto.class))
                     ),
                     @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -73,10 +71,10 @@ public class AluguelController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             }
     )
-    public ResponseEntity<?> buscarAluguelById (@PathVariable Long id) {
+    public ResponseEntity<?> buscarApoliceById (@PathVariable Long id) {
         try{
-            var aluguel = aluguelService.retornarAlugueisById(id);
-            return ResponseEntity.status(HttpStatus.CREATED).body(aluguel);
+            var apolice = apoliceSeguroService.retornarApolicesById(id);
+            return ResponseEntity.status(HttpStatus.CREATED).body(apolice);
         }catch (NoSuchElementException e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }catch (Exception e){
@@ -85,16 +83,15 @@ public class AluguelController {
 
     }
 
-    @GetMapping(
-            produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-            @Operation(summary = "Finds all Rents", description = "Finds all Rents",
-            tags = {"Rent"},
+    @GetMapping(produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+    @Operation(summary = "Finds all Apolices", description = "Finds all Apolices",
+            tags = {"Apolice"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
                             content = {
                                     @Content(
                                             mediaType = "application/json",
-                                            array = @ArraySchema(schema = @Schema(implementation = CriarAluguelDto.class))
+                                            array = @ArraySchema(schema = @Schema(implementation = CriarApoliceDto.class))
                                     )
                             }),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -104,8 +101,8 @@ public class AluguelController {
             })
     public ResponseEntity<?> buscarTodosAlugueis () {
         try{
-            var aluguel = aluguelService.retornarTodosAlugueis();
-            return ResponseEntity.status(HttpStatus.CREATED).body(aluguel);
+            var apolice = apoliceSeguroService.retornarTodasApolices();
+            return ResponseEntity.status(HttpStatus.CREATED).body(apolice);
         }catch (NoSuchElementException e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }catch (Exception e){
@@ -115,9 +112,9 @@ public class AluguelController {
     }
 
     @DeleteMapping("/{id}")
-    @Operation(summary = "Deletes a Rent",
-            description = "Deletes a Rent by passing in a JSON or XML representation of the rent!",
-            tags = {"Rent"},
+    @Operation(summary = "Deletes a Apolice",
+            description = "Deletes a Apolice by passing in a JSON or XML representation of the apolice!",
+            tags = {"Apolice"},
             responses = {
                     @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -126,9 +123,9 @@ public class AluguelController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             }
     )
-    public ResponseEntity<?> deletarAlugueis (@PathVariable Long id) {
+    public ResponseEntity<?> deletarApolice (@PathVariable Long id) {
         try{
-            aluguelService.deletarAluguel(id);
+            apoliceSeguroService.deletarApolice(id);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }catch (NoSuchElementException e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());

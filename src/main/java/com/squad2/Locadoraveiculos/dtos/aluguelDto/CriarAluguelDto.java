@@ -26,7 +26,7 @@ public class CriarAluguelDto {
 
     private Long motorista;
 
-    //private Long apolicesSeguro;
+    private Long apolicesSeguro;
 
     private List<Long> carros;
 }
