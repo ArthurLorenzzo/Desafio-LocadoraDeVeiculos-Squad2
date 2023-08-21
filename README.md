@@ -36,4 +36,6 @@ Diagrama de classes:
 
 3. Execute a aplicação Spring Boot.
 
-4. Acesse a API REST em `http://localhost:8080` e utilize as rotas para interagir com o sistema.
+5. Acesse a API REST em `http://localhost:8080` e utilize as rotas para interagir com o sistema.
+
+6. Verifique a documentação swagger da aplicação http://localhost:8080/swagger-ui/index.html# para ter acesso as rotas
