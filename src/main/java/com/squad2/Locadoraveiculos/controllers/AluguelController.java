@@ -53,7 +53,7 @@ public class AluguelController {
             tags = {"Rent"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = CriarAluguelDto.class))
+                            content = @Content(schema = @Schema(implementation = LerAluguelDto.class))
                     ),
                     @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -77,7 +77,7 @@ public class AluguelController {
                             content = {
                                     @Content(
                                             mediaType = "application/json",
-                                            array = @ArraySchema(schema = @Schema(implementation = CriarAluguelDto.class))
+                                            array = @ArraySchema(schema = @Schema(implementation = LerAluguelDto.class))
                                     )
                             }),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),

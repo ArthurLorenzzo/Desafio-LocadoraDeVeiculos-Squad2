@@ -55,7 +55,7 @@ public class CarroController {
                             content = {
                                     @Content(
                                             mediaType = "application/json",
-                                            array = @ArraySchema(schema = @Schema(implementation = CarroDto.class))
+                                            array = @ArraySchema(schema = @Schema(implementation = LerCarroDto.class))
                                     )
                             }),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -75,7 +75,7 @@ public class CarroController {
             tags = {"Car"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = CarroDto.class))
+                            content = @Content(schema = @Schema(implementation = LerCarroDto.class))
                     ),
                     @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
