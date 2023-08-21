@@ -1,75 +1,56 @@
 package com.squad2.Locadoraveiculos.services;
 
 import com.squad2.Locadoraveiculos.dtos.carroDto.CarroDto;
-import com.squad2.Locadoraveiculos.models.Acessorio;
+import com.squad2.Locadoraveiculos.exceptions.RequiredObjectIsNullException;
+import com.squad2.Locadoraveiculos.exceptions.ResourceNotFoundException;
 import com.squad2.Locadoraveiculos.models.Carro;
-import com.squad2.Locadoraveiculos.repositories.AcessorioRepository;
 import com.squad2.Locadoraveiculos.repositories.CarroRepository;
-import com.squad2.Locadoraveiculos.repositories.ModeloCarroRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CarroService {
 
     @Autowired
     private CarroRepository carroRepository;
-    @Autowired
-    private AcessorioRepository acessorioRepository;
-    @Autowired
-    private ModeloCarroRepository modeloCarroRepository;
 
 
     public CarroDto criarCarro(CarroDto carroDTO) {
-
-
+        if (carroDTO == null){throw new RequiredObjectIsNullException();}
         var carroCriado = new Carro();
-        carroCriado.setPlaca(carroDTO.getPlaca());
-        carroCriado.setChassi(carroDTO.getChassi());
-        carroCriado.setCor(carroDTO.getCor());
-        carroCriado.setValorDiaria(carroDTO.getValorDiaria());
-
-        var listaDeAcessorios = new ArrayList<Acessorio>();
-        carroDTO.getListaDeAcessoriosId().forEach(idAcessorio -> {
-            listaDeAcessorios.add(acessorioRepository.findById(idAcessorio).orElseThrow());
-        });
-        carroCriado.setAcessorios(listaDeAcessorios);
-
-        var modeloCarro = modeloCarroRepository.findById(carroDTO.getModeloCarroId()).orElseThrow();
-        carroCriado.setModeloCarro(modeloCarro);
+        BeanUtils.copyProperties(carroDTO,carroCriado);
         carroCriado = carroRepository.save(carroCriado);
-        var carroDto = new CarroDto();
-        BeanUtils.copyProperties(carroCriado,carroDto);
-        return carroDto;
+        BeanUtils.copyProperties(carroCriado,carroDTO);
+        return carroDTO;
     }
 
     public List<CarroDto> retornarTodosOsCarros(){
         var carrosRecuperadosDoBanco = carroRepository.findAll();
-        var listaDeRetornoDto = new ArrayList<CarroDto>();
-        var lercarroDto = new CarroDto();
-        carrosRecuperadosDoBanco.forEach(carro -> {
-            BeanUtils.copyProperties(carro,lercarroDto);
-            listaDeRetornoDto.add(lercarroDto);
-        });
+        var listaDeRetornoDto = carrosRecuperadosDoBanco
+                .stream()
+                .map(carro -> {
+                    var carroDto = new CarroDto();
+                    BeanUtils.copyProperties(carro,carroDto);
+                    return carroDto;
+                }).collect(Collectors.toList());
         return listaDeRetornoDto;
     }
 
     public CarroDto retornarCarroPorId(long id){
-
         var carroRecuperadoDoBanco = retornarCarroDoBancoPorId(id);
-        var lerCarroDto = new CarroDto();
-        BeanUtils.copyProperties(carroRecuperadoDoBanco,lerCarroDto);
-        return lerCarroDto;
+        var CarroDto = new CarroDto();
+        BeanUtils.copyProperties(carroRecuperadoDoBanco,CarroDto);
+        return CarroDto;
     }
     public void deletarCarro(long id){
         var carroRecuperadoDoBanco = retornarCarroDoBancoPorId(id);
         carroRepository.delete(carroRecuperadoDoBanco);
     }
     private Carro retornarCarroDoBancoPorId(long id){
-        return carroRepository.findById(id).orElseThrow();
+        return carroRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
     }
 }

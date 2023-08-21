@@ -1,5 +1,6 @@
 package com.squad2.Locadoraveiculos.controllers;
 
+import com.squad2.Locadoraveiculos.dtos.carroDto.CarroDto;
 import com.squad2.Locadoraveiculos.services.CarroService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -14,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.NoSuchElementException;
+import java.util.List;
 
 @Controller
 @RequestMapping("/api/carros")
@@ -39,15 +40,9 @@ public class CarroController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             }
     )
-    public ResponseEntity<?> cadastrarCarro (@RequestBody CarroDto carroDTO){
-        try{
-            var carroCriado = carroService.criarCarro(carroDTO);
-            return ResponseEntity.status(HttpStatus.CREATED).body(carroCriado);
-        }catch (NoSuchElementException e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-        }
+    public ResponseEntity<CarroDto> cadastrarCarro (@RequestBody CarroDto carroDTO){
+        var carroCriado = carroService.criarCarro(carroDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(carroCriado);
     }
 
     @GetMapping(
@@ -68,16 +63,11 @@ public class CarroController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             }
     )
-    public ResponseEntity<?> retornarCarros (){
-        try{
-            var listaDeCarros = carroService.retornarTodosOsCarros();
-            return ResponseEntity.status(HttpStatus.OK).body(listaDeCarros);
-        }catch (NoSuchElementException e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-        }
+    public ResponseEntity<List<CarroDto>> retornarCarros (){
+        var listaDeCarros = carroService.retornarTodosOsCarros();
+        return ResponseEntity.status(HttpStatus.OK).body(listaDeCarros);
     }
+
     @GetMapping(value = "/{id}",
             produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     @Operation(summary = "Finds a Car", description = "Finds a Car",
@@ -93,15 +83,10 @@ public class CarroController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             }
     )
-    public ResponseEntity<?> retornarCarroPorId (@PathVariable(value = "id") Long id){
-        try{
-            var carroRetornado = carroService.retornarCarroPorId(id);
-            return ResponseEntity.status(HttpStatus.OK).body(carroRetornado);
-        }catch (NoSuchElementException e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-        }
+    public ResponseEntity<CarroDto> retornarCarroPorId (@PathVariable(value = "id") Long id){
+        var carroRetornado = carroService.retornarCarroPorId(id);
+        return ResponseEntity.status(HttpStatus.OK).body(carroRetornado);
+
     }
 
     @DeleteMapping(value = "/{id}")
@@ -117,13 +102,7 @@ public class CarroController {
             }
     )
     public ResponseEntity<?> deletarCarroPorId (@PathVariable(value = "id") Long id){
-        try{
-            carroService.deletarCarro(id);
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        }catch (NoSuchElementException e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-        }
+        carroService.deletarCarro(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
