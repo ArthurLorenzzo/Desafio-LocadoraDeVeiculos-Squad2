@@ -1,6 +1,6 @@
 package com.squad2.Locadoraveiculos.controllers;
 
-import com.squad2.Locadoraveiculos.dtos.ModeloCarroDto;
+import com.squad2.Locadoraveiculos.dtos.modelosCarroDto.ModeloCarroDto;
 import com.squad2.Locadoraveiculos.services.ModeloCarroService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;

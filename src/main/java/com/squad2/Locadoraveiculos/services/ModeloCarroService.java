@@ -1,6 +1,7 @@
 package com.squad2.Locadoraveiculos.services;
 
-import com.squad2.Locadoraveiculos.dtos.ModeloCarroDto;
+import com.squad2.Locadoraveiculos.dtos.modelosCarroDto.LerModeloCarroDto;
+import com.squad2.Locadoraveiculos.dtos.modelosCarroDto.ModeloCarroDto;
 import com.squad2.Locadoraveiculos.exceptions.ResourceNotFoundException;
 import com.squad2.Locadoraveiculos.models.ModeloCarro;
 import com.squad2.Locadoraveiculos.repositories.ModeloCarroRepository;
@@ -24,12 +25,12 @@ public class ModeloCarroService {
         return modeloCarroDto;
     }
 
-    public List<ModeloCarroDto> retornarTodosOsModelosCarro(){
+    public List<LerModeloCarroDto> retornarTodosOsModelosCarro(){
         var modeloCarrosRecuperados = modeloCarroRepository.findAll();
         var modelosCarrosDto = modeloCarrosRecuperados
                 .stream()
                 .map(fabricante -> {
-                 var modeloCarroDto = new ModeloCarroDto();
+                 var modeloCarroDto = new LerModeloCarroDto();
                  BeanUtils.copyProperties(fabricante,modeloCarroDto);
                  return modeloCarroDto;
                 })
@@ -37,9 +38,9 @@ public class ModeloCarroService {
         return modelosCarrosDto;
     }
 
-    public ModeloCarroDto retornarModeloCarroPorid(Long id){
+    public LerModeloCarroDto retornarModeloCarroPorid(Long id){
         var modeloCarroRecuperado = recuperarModeloCarroPorId(id);
-        var modeloCarroDto = new ModeloCarroDto();
+        var modeloCarroDto = new LerModeloCarroDto();
         BeanUtils.copyProperties(modeloCarroRecuperado,modeloCarroDto);
         return modeloCarroDto;
     }

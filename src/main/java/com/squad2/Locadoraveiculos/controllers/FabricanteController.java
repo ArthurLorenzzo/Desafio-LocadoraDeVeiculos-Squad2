@@ -1,6 +1,6 @@
 package com.squad2.Locadoraveiculos.controllers;
 
-import com.squad2.Locadoraveiculos.dtos.FabricanteDto;
+import com.squad2.Locadoraveiculos.dtos.fabricantesDto.FabricanteDto;
 import com.squad2.Locadoraveiculos.dtos.MotoristaDto;
 import com.squad2.Locadoraveiculos.models.Fabricante;
 import com.squad2.Locadoraveiculos.services.FabricanteService;

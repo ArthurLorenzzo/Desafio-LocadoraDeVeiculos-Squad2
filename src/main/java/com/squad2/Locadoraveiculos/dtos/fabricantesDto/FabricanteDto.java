@@ -1,4 +1,4 @@
-package com.squad2.Locadoraveiculos.dtos;
+package com.squad2.Locadoraveiculos.dtos.fabricantesDto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.squad2.Locadoraveiculos.models.ModeloCarro;
@@ -18,5 +18,5 @@ public class FabricanteDto {
 
     @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     @JsonIgnoreProperties("fabricante")
-    private List<ModeloCarro> modelos;
+    private List<Long> modelos;
 }

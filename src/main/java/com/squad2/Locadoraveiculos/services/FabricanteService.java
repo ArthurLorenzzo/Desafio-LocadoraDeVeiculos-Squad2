@@ -1,6 +1,6 @@
 package com.squad2.Locadoraveiculos.services;
 
-import com.squad2.Locadoraveiculos.dtos.FabricanteDto;
+import com.squad2.Locadoraveiculos.dtos.fabricantesDto.FabricanteDto;
 import com.squad2.Locadoraveiculos.models.Fabricante;
 import com.squad2.Locadoraveiculos.repositories.FabricanteRepository;
 import org.springframework.beans.BeanUtils;

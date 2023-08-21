@@ -1,5 +1,6 @@
 package com.squad2.Locadoraveiculos.services;
-import com.squad2.Locadoraveiculos.dtos.AcessorioDto;
+import com.squad2.Locadoraveiculos.dtos.acessoriosDto.AcessorioDto;
+import com.squad2.Locadoraveiculos.dtos.acessoriosDto.LerAcessorioDto;
 import com.squad2.Locadoraveiculos.exceptions.ResourceNotFoundException;
 import com.squad2.Locadoraveiculos.models.Acessorio;
 import com.squad2.Locadoraveiculos.repositories.AcessorioRepository;
@@ -23,12 +24,12 @@ public class AcessorioService {
         return acessorioDto;
     }
 
-    public List<AcessorioDto> retornarTodos() {
+    public List<LerAcessorioDto> retornarTodos() {
         var acessoriosRetornados = acessorioRepository.findAll();
         var acessoriosDtos = acessoriosRetornados
                 .stream()
                 .map(acessorio ->{
-                    var acessorioDto = new AcessorioDto();
+                    var acessorioDto = new LerAcessorioDto();
                     BeanUtils.copyProperties(acessorio,acessorioDto);
                     return acessorioDto;})
                 .toList();
@@ -41,9 +42,9 @@ public class AcessorioService {
     }
 
 
-    public AcessorioDto retornaPorId(Long id) {
+    public LerAcessorioDto retornaPorId(Long id) {
             var acessorio = recuperarAcessorioDoBanco(id);
-            var acessorioDto = new AcessorioDto();
+            var acessorioDto = new LerAcessorioDto();
             BeanUtils.copyProperties(acessorio,acessorioDto);
             return acessorioDto;
     }
