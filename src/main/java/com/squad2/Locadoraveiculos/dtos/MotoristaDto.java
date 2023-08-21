@@ -1,4 +1,4 @@
-package com.squad2.Locadoraveiculos.dtos.motoristaDto;
+package com.squad2.Locadoraveiculos.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.squad2.Locadoraveiculos.models.Sexo;

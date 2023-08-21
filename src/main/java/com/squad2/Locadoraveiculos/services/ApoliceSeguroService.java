@@ -1,7 +1,6 @@
 package com.squad2.Locadoraveiculos.services;
 
-import com.squad2.Locadoraveiculos.dtos.apoliceDto.CriarApoliceDto;
-import com.squad2.Locadoraveiculos.models.Aluguel;
+import com.squad2.Locadoraveiculos.dtos.ApoliceDto;
 import com.squad2.Locadoraveiculos.models.ApoliceSeguro;
 import com.squad2.Locadoraveiculos.repositories.ApoliceSeguroRepository;
 import jakarta.transaction.Transactional;
@@ -17,7 +16,7 @@ public class ApoliceSeguroService {
     private ApoliceSeguroRepository apoliceSeguroRepository;
 
     @Transactional
-    public ApoliceSeguro criarApolice (CriarApoliceDto apoliceDto) {
+    public ApoliceSeguro criarApolice (ApoliceDto apoliceDto) {
 
 
         ApoliceSeguro apoliceSeguro = new ApoliceSeguro();

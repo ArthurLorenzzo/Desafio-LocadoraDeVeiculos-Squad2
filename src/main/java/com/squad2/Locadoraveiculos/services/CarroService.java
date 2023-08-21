@@ -1,6 +1,6 @@
 package com.squad2.Locadoraveiculos.services;
 
-import com.squad2.Locadoraveiculos.dtos.carroDto.CarroDto;
+import com.squad2.Locadoraveiculos.dtos.CarroDto;
 import com.squad2.Locadoraveiculos.models.Acessorio;
 import com.squad2.Locadoraveiculos.models.Carro;
 import com.squad2.Locadoraveiculos.repositories.AcessorioRepository;

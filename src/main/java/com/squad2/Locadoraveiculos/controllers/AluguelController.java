@@ -1,7 +1,7 @@
 package com.squad2.Locadoraveiculos.controllers;
 
 
-import com.squad2.Locadoraveiculos.dtos.aluguelDto.CriarAluguelDto;
+import com.squad2.Locadoraveiculos.dtos.AluguelDto;
 import com.squad2.Locadoraveiculos.services.AluguelService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -35,14 +35,14 @@ public class AluguelController {
             tags = {"Rent"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = CriarAluguelDto.class))
+                            content = @Content(schema = @Schema(implementation = AluguelDto.class))
                     ),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             }
     )
-    public ResponseEntity<?> cadastrarAluguel (@RequestBody CriarAluguelDto aluguelDto) {
+    public ResponseEntity<?> cadastrarAluguel (@RequestBody AluguelDto aluguelDto) {
 
         try{
             var alugelCriado = aluguelService.criarAluguel(aluguelDto);
@@ -61,7 +61,7 @@ public class AluguelController {
             tags = {"Rent"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = CriarAluguelDto.class))
+                            content = @Content(schema = @Schema(implementation = AluguelDto.class))
                     ),
                     @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -91,7 +91,7 @@ public class AluguelController {
                             content = {
                                     @Content(
                                             mediaType = "application/json",
-                                            array = @ArraySchema(schema = @Schema(implementation = CriarAluguelDto.class))
+                                            array = @ArraySchema(schema = @Schema(implementation = AluguelDto.class))
                                     )
                             }),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),

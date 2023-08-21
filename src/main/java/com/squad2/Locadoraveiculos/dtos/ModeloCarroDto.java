@@ -1,4 +1,4 @@
-package com.squad2.Locadoraveiculos.dtos.modeloCarroDto;
+package com.squad2.Locadoraveiculos.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.squad2.Locadoraveiculos.models.Carro;

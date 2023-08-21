@@ -1,22 +1,22 @@
-package com.squad2.Locadoraveiculos.dtos.fabricanteDto;
+package com.squad2.Locadoraveiculos.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.squad2.Locadoraveiculos.models.ModeloCarro;
+import com.squad2.Locadoraveiculos.models.Carro;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class FabricanteDto {
+public class AcessorioDto {
 
     @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     private Long id;
 
-    private String nome;
+    private String descricao;
 
     @Schema(accessMode = Schema.AccessMode.READ_ONLY)
-    @JsonIgnoreProperties("fabricante")
-    private List<ModeloCarro> modelos;
+    @JsonIgnoreProperties("acessorios")
+    private List<Carro> carros;
+
 }

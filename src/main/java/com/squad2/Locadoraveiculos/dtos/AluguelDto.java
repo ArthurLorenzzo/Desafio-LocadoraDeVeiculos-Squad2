@@ -1,22 +1,21 @@
-package com.squad2.Locadoraveiculos.dtos.aluguelDto;
+package com.squad2.Locadoraveiculos.dtos;
 
-import com.squad2.Locadoraveiculos.models.ApoliceSeguro;
-import com.squad2.Locadoraveiculos.models.Carro;
-import com.squad2.Locadoraveiculos.models.Motorista;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 @Data
 @Builder
-public class CriarAluguelDto {
+public class AluguelDto {
 
     //private LocalDate dataPedido;
+
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
+    private Long id;
 
     private Date dataEntrega;
 
