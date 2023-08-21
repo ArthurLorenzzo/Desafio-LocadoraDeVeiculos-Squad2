@@ -20,7 +20,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("api/acessorios")
-@Tag(name = "Accessory", description = "Endpoints for Managing Accessories")
+@Tag(name = "Acessorio", description = "Endpoints para Gerenciamento de Acessorios")
 public class AcessorioController {
 
     @Autowired
@@ -29,9 +29,9 @@ public class AcessorioController {
     @PostMapping(
             consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE },
             produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-    @Operation(summary = "Adds a new Accessory",
-            description = "Adds a new Accessory by passing in a JSON or XML representation of the accessory!",
-            tags = {"Accessory"},
+    @Operation(summary = "Adicionar um novo Acessorio",
+            description = "Adiciona um novo Acessorio passando uma representação JSON ou XML do Acessorio!",
+            tags = {"Acessorio"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
                             content = @Content(schema = @Schema(implementation = AcessorioDto.class))
@@ -47,8 +47,8 @@ public class AcessorioController {
     }
 
     @GetMapping(produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-    @Operation(summary = "Finds all Accessories", description = "Finds all Accessories",
-            tags = {"Accessory"},
+    @Operation(summary = "Encontrar todos os Acessorios", description = "Encontrar todos os Acessorios",
+            tags = {"Acessorio"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
                             content = {
@@ -70,8 +70,8 @@ public class AcessorioController {
 
     @GetMapping(value = "{id}",
             produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-    @Operation(summary = "Finds a Accessory", description = "Finds a Accessory",
-            tags = {"Accessory"},
+    @Operation(summary = "Encontrar um Acessorio", description = "Encontrar um Acessorio",
+            tags = {"Acessorio"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
                             content = @Content(schema = @Schema(implementation = LerAcessorioDto.class))
@@ -89,9 +89,9 @@ public class AcessorioController {
     }
 
     @DeleteMapping("/{id}")
-    @Operation(summary = "Deletes a Accessory",
-            description = "Deletes a Accessory by passing in a JSON or XML representation of the acessory!",
-            tags = {"Accessory"},
+    @Operation(summary = "Deletar um Acessorio",
+            description = "Deleta um Acessorio passando uma representação JSON ou XML do Acessorio!",
+            tags = {"Acessorio"},
             responses = {
                     @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),

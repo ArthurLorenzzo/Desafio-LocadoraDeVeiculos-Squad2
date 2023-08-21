@@ -20,7 +20,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/api/carros")
-@Tag(name = "Car", description = "Endpoints for Managing Cars")
+@Tag(name = "Carro", description = "Endpoints para Gerenciamento de Carros")
 public class CarroController {
 
     @Autowired
@@ -29,9 +29,9 @@ public class CarroController {
     @PostMapping(
             consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE },
             produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-    @Operation(summary = "Adds a new Car",
-            description = "Adds a new Car by passing in a JSON or XML representation of the car!",
-            tags = {"Car"},
+    @Operation(summary = "Adicionar um nov Carro",
+            description = "Adiciona um novo carro passando uma representação JSON ou XML do carro!",
+            tags = {"Carro"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
                             content = @Content(schema = @Schema(implementation = CarroDto.class))
@@ -48,8 +48,8 @@ public class CarroController {
 
     @GetMapping(
             produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-    @Operation(summary = "Finds all Cars", description = "Finds all Cars",
-            tags = {"Car"},
+    @Operation(summary = "Encontrar todos os carros", description = "Encontrar todos os carros",
+            tags = {"Carro"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
                             content = {
@@ -71,8 +71,8 @@ public class CarroController {
 
     @GetMapping(value = "/{id}",
             produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-    @Operation(summary = "Finds a Car", description = "Finds a Car",
-            tags = {"Car"},
+    @Operation(summary = "Encontrar um Carro", description = "Encontrar um Carro",
+            tags = {"Carro"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
                             content = @Content(schema = @Schema(implementation = LerCarroDto.class))
@@ -91,9 +91,9 @@ public class CarroController {
     }
 
     @DeleteMapping(value = "/{id}")
-    @Operation(summary = "Deletes a Car",
-            description = "Deletes a Car by passing in a JSON or XML representation of the car!",
-            tags = {"Car"},
+    @Operation(summary = "Deletar um carro",
+            description = "Deleta um carro passando uma representação JSON ou XML do carro!",
+            tags = {"Carro"},
             responses = {
                     @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),

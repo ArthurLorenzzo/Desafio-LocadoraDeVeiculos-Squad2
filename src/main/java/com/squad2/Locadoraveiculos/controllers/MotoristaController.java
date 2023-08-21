@@ -106,7 +106,7 @@ public class MotoristaController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Deletar um Motorista",
-            description = "Deleta um novo motorista passando uma representação JSON ou XML do motorista!",
+            description = "Deleta um motorista passando uma representação JSON ou XML do motorista!",
             tags = {"Motorista"},
             responses = {
                     @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
