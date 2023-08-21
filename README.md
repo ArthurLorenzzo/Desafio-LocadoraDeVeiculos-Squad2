@@ -1,6 +1,6 @@
 # Desafio Locadora De Veiculos Squad 2
 
-- Este repositório contém o código-fonte e a implementação de um sistema de backend em Java para uma locadora de veículos. O objetivo deste projeto é fornecer uma plataforma para gerenciar o aluguel de veículos em uma locadora.
+Este repositório contém o código-fonte e a implementação de um sistema de backend em Java para uma locadora de veículos. O objetivo deste projeto é fornecer uma plataforma para gerenciar o aluguel de veículos em uma locadora.
 
 Trello: https://trello.com/b/QvGBf6JC/desafio-locadora-solutis
 
