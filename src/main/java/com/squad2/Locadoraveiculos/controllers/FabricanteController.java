@@ -2,7 +2,6 @@ package com.squad2.Locadoraveiculos.controllers;
 
 import com.squad2.Locadoraveiculos.dtos.fabricantesDto.FabricanteDto;
 import com.squad2.Locadoraveiculos.dtos.MotoristaDto;
-import com.squad2.Locadoraveiculos.models.Fabricante;
 import com.squad2.Locadoraveiculos.services.FabricanteService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -11,6 +10,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -40,7 +40,10 @@ public class FabricanteController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             }
     )
-    public ResponseEntity<Fabricante>  cadastrar (@RequestBody FabricanteDto fabricanteDto){ return fabricanteService.criarFabricante(fabricanteDto);}
+    public ResponseEntity<FabricanteDto>  cadastrar (@RequestBody FabricanteDto fabricanteDto) {
+        var fabricanteCriadoDto = fabricanteService.criarFabricante(fabricanteDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(fabricanteCriadoDto);
+    }
 
     @GetMapping(
             produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
@@ -60,8 +63,9 @@ public class FabricanteController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             }
     )
-    public ResponseEntity<List<Fabricante>> retornar () {
-       return fabricanteService.retornar();
+    public ResponseEntity<List<FabricanteDto>> retornar () {
+        var listaRetorna = fabricanteService.retornar();
+       return ResponseEntity.status(HttpStatus.OK).body(listaRetorna);
    }
 
    @GetMapping(value = "/{id}",
@@ -79,8 +83,9 @@ public class FabricanteController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             }
     )
-    public ResponseEntity <?> retornarPorId (@PathVariable Long id){
-       return fabricanteService.retornarPorId(id);
+    public ResponseEntity<?> retornarPorId (@PathVariable Long id){
+       var fabricanteDto = fabricanteService.retornarPorId(id);
+       return ResponseEntity.status(HttpStatus.OK).body(fabricanteDto);
    }
 
    @DeleteMapping("/{id}")
@@ -96,6 +101,7 @@ public class FabricanteController {
            }
    )
     public ResponseEntity<?> deletePorId(@PathVariable Long id){
-        return fabricanteService.deletarPorId(id);
+        fabricanteService.deletarPorId(id);
+       return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
    }
 }
