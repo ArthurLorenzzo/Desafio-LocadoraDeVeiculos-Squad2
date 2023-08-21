@@ -42,7 +42,7 @@ public class AluguelController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             }
     )
-    public CriarAluguelDto cadastrarAluguel (@RequestBody CriarAluguelDto criarAluguelDto) {
+    public LerAluguelDto cadastrarAluguel (@RequestBody CriarAluguelDto criarAluguelDto) {
 
         return aluguelService.criarAluguel(criarAluguelDto);
     }

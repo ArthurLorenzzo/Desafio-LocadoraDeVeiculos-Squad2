@@ -20,7 +20,6 @@ public class ApoliceSeguroService {
     @Autowired
     private ApoliceSeguroRepository apoliceSeguroRepository;
 
-    @Transactional
     public ApoliceDto criarApolice (ApoliceDto apoliceDto) {
 
 

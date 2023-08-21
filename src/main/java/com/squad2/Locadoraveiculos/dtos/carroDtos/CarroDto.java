@@ -19,9 +19,7 @@ public class CarroDto {
 
     private BigDecimal valorDiaria;
 
-    @JsonIgnoreProperties({"carros"})
-    private List<Long> acessorios;
+    private List<Long> acessorios_id;
 
-    @JsonIgnoreProperties({"carros"})
-    private Long modeloCarro;
+    private Long modeloCarro_id;
 }

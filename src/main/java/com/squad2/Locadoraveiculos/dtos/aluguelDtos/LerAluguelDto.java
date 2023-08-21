@@ -1,5 +1,7 @@
 package com.squad2.Locadoraveiculos.dtos.aluguelDtos;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.squad2.Locadoraveiculos.models.ApoliceSeguro;
 import com.squad2.Locadoraveiculos.models.Carro;
 import com.squad2.Locadoraveiculos.models.Motorista;
@@ -27,7 +29,8 @@ public class LerAluguelDto {
 
     private Motorista motorista;
 
-    private ApoliceSeguro apolicesSeguro;
+    @JsonIgnoreProperties("aluguel")
+    private ApoliceSeguro apoliceSeguro;
 
     private List<Carro> carros;
 }
