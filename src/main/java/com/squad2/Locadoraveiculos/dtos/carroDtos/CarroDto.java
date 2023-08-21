@@ -1,4 +1,4 @@
-package com.squad2.Locadoraveiculos.dtos;
+package com.squad2.Locadoraveiculos.dtos.carroDtos;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.squad2.Locadoraveiculos.models.Acessorio;
 import com.squad2.Locadoraveiculos.models.ModeloCarro;
@@ -11,9 +11,6 @@ import java.util.List;
 @Data
 public class CarroDto {
 
-    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
-    private Long id;
-
     private String placa;
 
     private String chassi;
@@ -23,8 +20,8 @@ public class CarroDto {
     private BigDecimal valorDiaria;
 
     @JsonIgnoreProperties({"carros"})
-    private List<Acessorio> acessorios;
+    private List<Long> acessorios;
 
     @JsonIgnoreProperties({"carros"})
-    private ModeloCarro modeloCarro;
+    private Long modeloCarro;
 }

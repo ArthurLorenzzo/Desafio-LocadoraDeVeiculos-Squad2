@@ -1,6 +1,7 @@
 package com.squad2.Locadoraveiculos.controllers;
 
-import com.squad2.Locadoraveiculos.dtos.CarroDto;
+import com.squad2.Locadoraveiculos.dtos.carroDtos.CarroDto;
+import com.squad2.Locadoraveiculos.dtos.carroDtos.LerCarroDto;
 import com.squad2.Locadoraveiculos.services.CarroService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -63,7 +64,7 @@ public class CarroController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             }
     )
-    public ResponseEntity<List<CarroDto>> retornarCarros (){
+    public ResponseEntity<List<LerCarroDto>> retornarCarros (){
         var listaDeCarros = carroService.retornarTodosOsCarros();
         return ResponseEntity.status(HttpStatus.OK).body(listaDeCarros);
     }
@@ -83,7 +84,7 @@ public class CarroController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             }
     )
-    public ResponseEntity<CarroDto> retornarCarroPorId (@PathVariable(value = "id") Long id){
+    public ResponseEntity<LerCarroDto> retornarCarroPorId (@PathVariable(value = "id") Long id){
         var carroRetornado = carroService.retornarCarroPorId(id);
         return ResponseEntity.status(HttpStatus.OK).body(carroRetornado);
 

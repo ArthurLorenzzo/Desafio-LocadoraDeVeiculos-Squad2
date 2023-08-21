@@ -1,6 +1,7 @@
 package com.squad2.Locadoraveiculos.services;
 
-import com.squad2.Locadoraveiculos.dtos.CarroDto;
+import com.squad2.Locadoraveiculos.dtos.carroDtos.CarroDto;
+import com.squad2.Locadoraveiculos.dtos.carroDtos.LerCarroDto;
 import com.squad2.Locadoraveiculos.exceptions.RequiredObjectIsNullException;
 import com.squad2.Locadoraveiculos.exceptions.ResourceNotFoundException;
 import com.squad2.Locadoraveiculos.models.Carro;
@@ -28,23 +29,23 @@ public class CarroService {
         return carroDTO;
     }
 
-    public List<CarroDto> retornarTodosOsCarros(){
+    public List<LerCarroDto> retornarTodosOsCarros(){
         var carrosRecuperadosDoBanco = carroRepository.findAll();
         var listaDeRetornoDto = carrosRecuperadosDoBanco
                 .stream()
                 .map(carro -> {
-                    var carroDto = new CarroDto();
+                    var carroDto = new LerCarroDto();
                     BeanUtils.copyProperties(carro,carroDto);
                     return carroDto;
                 }).collect(Collectors.toList());
         return listaDeRetornoDto;
     }
 
-    public CarroDto retornarCarroPorId(long id){
+    public LerCarroDto retornarCarroPorId(long id){
         var carroRecuperadoDoBanco = retornarCarroDoBancoPorId(id);
-        var CarroDto = new CarroDto();
-        BeanUtils.copyProperties(carroRecuperadoDoBanco,CarroDto);
-        return CarroDto;
+        var carroDto = new LerCarroDto();
+        BeanUtils.copyProperties(carroRecuperadoDoBanco, carroDto);
+        return carroDto;
     }
     public void deletarCarro(long id){
         var carroRecuperadoDoBanco = retornarCarroDoBancoPorId(id);
