@@ -45,8 +45,8 @@ public class FabricanteController {
 
     @GetMapping(
             produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-    @Operation(summary = "Finds all Drivers", description = "Finds all Drivers",
-            tags = {"Driver"},
+    @Operation(summary = "Finds all Producers", description = "Finds all Producers",
+            tags = {"Producer"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
                             content = {

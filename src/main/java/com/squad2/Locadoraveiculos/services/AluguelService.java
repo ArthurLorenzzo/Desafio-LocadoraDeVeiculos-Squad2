@@ -73,5 +73,12 @@ public class AluguelService {
 
     }
 
+    public void deletarAluguel ( Long id ){
+        aluguelRepository.findById(id)
+                .map( alugel -> {
+                    aluguelRepository.delete(alugel );
+                    return alugel;
+                });
+    }
 
 }

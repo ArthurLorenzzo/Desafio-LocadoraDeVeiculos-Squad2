@@ -35,7 +35,7 @@ public class CarroController {
             tags = {"Car"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = CriarMotoristaDto.class))
+                            content = @Content(schema = @Schema(implementation = CriarCarroDto.class))
                     ),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
@@ -62,7 +62,7 @@ public class CarroController {
                             content = {
                                     @Content(
                                             mediaType = "application/json",
-                                            array = @ArraySchema(schema = @Schema(implementation = LerMotoristaDto.class))
+                                            array = @ArraySchema(schema = @Schema(implementation = CriarCarroDto.class))
                                     )
                             }),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -87,7 +87,7 @@ public class CarroController {
             tags = {"Car"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = LerMotoristaDto.class))
+                            content = @Content(schema = @Schema(implementation = CriarCarroDto.class))
                     ),
                     @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),

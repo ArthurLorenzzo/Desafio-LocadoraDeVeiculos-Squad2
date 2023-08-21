@@ -42,4 +42,12 @@ public class ApoliceSeguroService {
 
     }
 
+    public void deletarApolice ( Long id ){
+        apoliceSeguroRepository.findById(id)
+                .map( apolice -> {
+                    apoliceSeguroRepository.delete(apolice );
+                    return apolice;
+                });
+    }
+
 }
