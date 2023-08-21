@@ -5,12 +5,9 @@ import com.squad2.Locadoraveiculos.models.Fabricante;
 import com.squad2.Locadoraveiculos.repositories.FabricanteRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 public class FabricanteService {
@@ -18,50 +15,39 @@ public class FabricanteService {
     @Autowired
     private FabricanteRepository fabricanteRepository;
 
-    public ResponseEntity<Fabricante> criarFabricante(FabricanteDto fabricanteDto) {
-        try {
+    public FabricanteDto criarFabricante(FabricanteDto fabricanteDto) {
             var fabricante = new Fabricante();
             BeanUtils.copyProperties(fabricanteDto, fabricante);
             var fabricanteCriado = fabricanteRepository.save(fabricante);
-            return ResponseEntity.status(HttpStatus.CREATED).body(fabricanteCriado);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+            BeanUtils.copyProperties(fabricanteCriado,fabricanteDto);
+            return fabricanteDto;
+
     }
-    public ResponseEntity<List<Fabricante>> retornar() {
-        try {
-            var fabricantesRetornados = fabricanteRepository.findAll();
-            return ResponseEntity.status(HttpStatus.OK).body(fabricantesRetornados);
-        }catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+    public List<FabricanteDto> retornar() {
+        var fabricantesRetornados = fabricanteRepository.findAll();
+        var fabricanteDtos = fabricantesRetornados
+                .stream()
+                .map(fabricante -> {
+                    var fabricanteDto = new FabricanteDto();
+                    BeanUtils.copyProperties(fabricante, fabricanteDto);
+                    return fabricanteDto;
+                })
+                .toList();
+        return fabricanteDtos;
     }
 
-    public ResponseEntity<?> retornarPorId(Long id) {
-        try{
-            var fabricante = retornarFabricanteDoBancoPorId(id);
-            return ResponseEntity.status(HttpStatus.OK).body(fabricante);
-        }catch (NoSuchElementException e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
-        catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-        }
-    }
+    public void deletarPorId(Long id) {
+        var fabricante = retornarFabricanteDoBancoPorId(id);
+        fabricanteRepository.delete(fabricante);
 
-    public ResponseEntity<?> deletarPorId(Long id) {
-        try{
-            var fabricante = retornarFabricanteDoBancoPorId(id);
-            fabricanteRepository.delete(fabricante);
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        }catch (NoSuchElementException e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
-        catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-        }
     }
+    public FabricanteDto retornarPorId(Long id) {
+        var fabricante = retornarFabricanteDoBancoPorId(id);
+        var fabricanteDto = new FabricanteDto();
+        BeanUtils.copyProperties(fabricante,fabricanteDto);
+        return fabricanteDto;
 
+    }
     private Fabricante retornarFabricanteDoBancoPorId(Long id) {
         return fabricanteRepository.findById(id).orElseThrow();
 
