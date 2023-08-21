@@ -1,5 +1,6 @@
 package com.squad2.Locadoraveiculos.controllers;
 
+import com.squad2.Locadoraveiculos.dtos.modelosCarroDto.LerModeloCarroDto;
 import com.squad2.Locadoraveiculos.dtos.modelosCarroDto.ModeloCarroDto;
 import com.squad2.Locadoraveiculos.services.ModeloCarroService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -55,7 +56,7 @@ public class ModeloCarroController {
                             content = {
                                     @Content(
                                             mediaType = "application/json",
-                                            array = @ArraySchema(schema = @Schema(implementation = ModeloCarroDto.class))
+                                            array = @ArraySchema(schema = @Schema(implementation = LerModeloCarroDto.class))
                                     )
                             }),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -64,7 +65,7 @@ public class ModeloCarroController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             }
     )
-    public  ResponseEntity<List<ModeloCarroDto>> retornarTodosOsModelosCarro(){
+    public  ResponseEntity<List<LerModeloCarroDto>> retornarTodosOsModelosCarro(){
         var listaRetornada = modeloCarroService.retornarTodosOsModelosCarro();
         return  ResponseEntity.status(HttpStatus.OK).body(listaRetornada);
     }
@@ -75,7 +76,7 @@ public class ModeloCarroController {
             tags = {"Model"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = ModeloCarroDto.class))
+                            content = @Content(schema = @Schema(implementation = LerModeloCarroDto.class))
                     ),
                     @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -84,7 +85,7 @@ public class ModeloCarroController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             }
     )
-    public  ResponseEntity<ModeloCarroDto> retornarModelosCarroPorId(@PathVariable(value = "id") Long id){
+    public  ResponseEntity<LerModeloCarroDto> retornarModelosCarroPorId(@PathVariable(value = "id") Long id){
         var modeloRetornado = modeloCarroService.retornarModeloCarroPorid(id);
         return  ResponseEntity.status(HttpStatus.CREATED).body(modeloRetornado);
     }

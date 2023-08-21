@@ -1,6 +1,7 @@
 package com.squad2.Locadoraveiculos.controllers;
 
 import com.squad2.Locadoraveiculos.dtos.acessoriosDto.AcessorioDto;
+import com.squad2.Locadoraveiculos.dtos.acessoriosDto.LerAcessorioDto;
 import com.squad2.Locadoraveiculos.services.AcessorioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -53,7 +54,7 @@ public class AcessorioController {
                             content = {
                                     @Content(
                                             mediaType = "application/json",
-                                            array = @ArraySchema(schema = @Schema(implementation = AcessorioDto.class))
+                                            array = @ArraySchema(schema = @Schema(implementation = LerAcessorioDto.class))
                                     )
                             }),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -61,7 +62,7 @@ public class AcessorioController {
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             })
-    public ResponseEntity<List<AcessorioDto>> retornarTodos () {
+    public ResponseEntity<List<LerAcessorioDto>> retornarTodos () {
         var listaRetornada = acessorioService.retornarTodos();
         return ResponseEntity.status(HttpStatus.OK).body(listaRetornada);
     }
@@ -73,7 +74,7 @@ public class AcessorioController {
             tags = {"Accessory"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = AcessorioDto.class))
+                            content = @Content(schema = @Schema(implementation = LerAcessorioDto.class))
                     ),
                     @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),

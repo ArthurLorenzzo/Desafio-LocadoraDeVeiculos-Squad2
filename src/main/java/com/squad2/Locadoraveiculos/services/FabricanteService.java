@@ -1,6 +1,7 @@
 package com.squad2.Locadoraveiculos.services;
 
 import com.squad2.Locadoraveiculos.dtos.fabricantesDto.FabricanteDto;
+import com.squad2.Locadoraveiculos.dtos.fabricantesDto.LerFabricanteDto;
 import com.squad2.Locadoraveiculos.models.Fabricante;
 import com.squad2.Locadoraveiculos.repositories.FabricanteRepository;
 import org.springframework.beans.BeanUtils;
@@ -23,12 +24,12 @@ public class FabricanteService {
             return fabricanteDto;
 
     }
-    public List<FabricanteDto> retornar() {
+    public List<LerFabricanteDto> retornar() {
         var fabricantesRetornados = fabricanteRepository.findAll();
         var fabricanteDtos = fabricantesRetornados
                 .stream()
                 .map(fabricante -> {
-                    var fabricanteDto = new FabricanteDto();
+                    var fabricanteDto = new LerFabricanteDto();
                     BeanUtils.copyProperties(fabricante, fabricanteDto);
                     return fabricanteDto;
                 })
@@ -41,9 +42,9 @@ public class FabricanteService {
         fabricanteRepository.delete(fabricante);
 
     }
-    public FabricanteDto retornarPorId(Long id) {
+    public LerFabricanteDto retornarPorId(Long id) {
         var fabricante = retornarFabricanteDoBancoPorId(id);
-        var fabricanteDto = new FabricanteDto();
+        var fabricanteDto = new LerFabricanteDto();
         BeanUtils.copyProperties(fabricante,fabricanteDto);
         return fabricanteDto;
 

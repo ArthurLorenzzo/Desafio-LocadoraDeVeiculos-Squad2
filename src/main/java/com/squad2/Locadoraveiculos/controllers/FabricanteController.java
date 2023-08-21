@@ -2,6 +2,7 @@ package com.squad2.Locadoraveiculos.controllers;
 
 import com.squad2.Locadoraveiculos.dtos.fabricantesDto.FabricanteDto;
 import com.squad2.Locadoraveiculos.dtos.MotoristaDto;
+import com.squad2.Locadoraveiculos.dtos.fabricantesDto.LerFabricanteDto;
 import com.squad2.Locadoraveiculos.services.FabricanteService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -33,7 +34,7 @@ public class FabricanteController {
             tags = {"Producer"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = MotoristaDto.class))
+                            content = @Content(schema = @Schema(implementation = FabricanteDto.class))
                     ),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
@@ -54,7 +55,7 @@ public class FabricanteController {
                             content = {
                                     @Content(
                                             mediaType = "application/json",
-                                            array = @ArraySchema(schema = @Schema(implementation = MotoristaDto.class))
+                                            array = @ArraySchema(schema = @Schema(implementation = LerFabricanteDto.class))
                                     )
                             }),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -63,7 +64,7 @@ public class FabricanteController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             }
     )
-    public ResponseEntity<List<FabricanteDto>> retornar () {
+    public ResponseEntity<List<LerFabricanteDto>> retornar () {
         var listaRetorna = fabricanteService.retornar();
        return ResponseEntity.status(HttpStatus.OK).body(listaRetorna);
    }
@@ -74,7 +75,7 @@ public class FabricanteController {
             tags = {"Producer"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = MotoristaDto.class))
+                            content = @Content(schema = @Schema(implementation = LerFabricanteDto.class))
                     ),
                     @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
