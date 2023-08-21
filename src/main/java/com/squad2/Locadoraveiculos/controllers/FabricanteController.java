@@ -1,6 +1,6 @@
 package com.squad2.Locadoraveiculos.controllers;
 
-import com.squad2.Locadoraveiculos.dtos.fabricanteDto.CriarFabricanteDto;
+import com.squad2.Locadoraveiculos.dtos.fabricanteDto.FabricanteDto;
 import com.squad2.Locadoraveiculos.dtos.motoristaDto.MotoristaDto;
 import com.squad2.Locadoraveiculos.models.Fabricante;
 import com.squad2.Locadoraveiculos.services.FabricanteService;
@@ -40,7 +40,7 @@ public class FabricanteController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             }
     )
-    public ResponseEntity<Fabricante>  cadastrar (@RequestBody CriarFabricanteDto fabricanteDto){ return fabricanteService.criarFabricante(fabricanteDto);}
+    public ResponseEntity<Fabricante>  cadastrar (@RequestBody FabricanteDto fabricanteDto){ return fabricanteService.criarFabricante(fabricanteDto);}
 
     @GetMapping(
             produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })

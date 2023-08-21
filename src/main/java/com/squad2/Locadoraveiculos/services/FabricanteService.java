@@ -1,6 +1,6 @@
 package com.squad2.Locadoraveiculos.services;
 
-import com.squad2.Locadoraveiculos.dtos.fabricanteDto.CriarFabricanteDto;
+import com.squad2.Locadoraveiculos.dtos.fabricanteDto.FabricanteDto;
 import com.squad2.Locadoraveiculos.models.Fabricante;
 import com.squad2.Locadoraveiculos.repositories.FabricanteRepository;
 import org.springframework.beans.BeanUtils;
@@ -18,7 +18,7 @@ public class FabricanteService {
     @Autowired
     private FabricanteRepository fabricanteRepository;
 
-    public ResponseEntity<Fabricante> criarFabricante(CriarFabricanteDto fabricanteDto) {
+    public ResponseEntity<Fabricante> criarFabricante(FabricanteDto fabricanteDto) {
         try {
             var fabricante = new Fabricante();
             BeanUtils.copyProperties(fabricanteDto, fabricante);

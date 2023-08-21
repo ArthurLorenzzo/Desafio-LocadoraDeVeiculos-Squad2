@@ -1,6 +1,6 @@
 package com.squad2.Locadoraveiculos.controllers;
 
-import com.squad2.Locadoraveiculos.dtos.modeloCarroDto.CriarModeloCarroDto;
+import com.squad2.Locadoraveiculos.dtos.modeloCarroDto.ModeloCarroDto;
 import com.squad2.Locadoraveiculos.dtos.motoristaDto.MotoristaDto;
 import com.squad2.Locadoraveiculos.services.ModeloCarroService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,6 +15,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/api/modelos-carros")
@@ -33,15 +35,16 @@ public class ModeloCarroController {
             tags = {"Model"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = MotoristaDto.class))
+                            content = @Content(schema = @Schema(implementation = ModeloCarroDto.class))
                     ),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             }
     )
-    public ResponseEntity<?> cadastrarModeloCarro(@RequestBody CriarModeloCarroDto modeloDto){
-        return  modeloCarroService.criarModeloCarro(modeloDto);
+    public ResponseEntity<ModeloCarroDto> cadastrarModeloCarro(@RequestBody ModeloCarroDto modeloDto){
+        var modeloCarroCriado = modeloCarroService.criarModeloCarro(modeloDto);
+        return  ResponseEntity.status(HttpStatus.CREATED).body(modeloCarroCriado);
     }
 
     @GetMapping(
@@ -53,7 +56,7 @@ public class ModeloCarroController {
                             content = {
                                     @Content(
                                             mediaType = "application/json",
-                                            array = @ArraySchema(schema = @Schema(implementation = MotoristaDto.class))
+                                            array = @ArraySchema(schema = @Schema(implementation = ModeloCarroDto.class))
                                     )
                             }),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -62,8 +65,9 @@ public class ModeloCarroController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             }
     )
-    public  ResponseEntity<?> retornarTodosOsModelosCarro(){
-        return  modeloCarroService.retornarTodosOsModelosCarro();
+    public  ResponseEntity<List<ModeloCarroDto>> retornarTodosOsModelosCarro(){
+        var listaRetornada = modeloCarroService.retornarTodosOsModelosCarro();
+        return  ResponseEntity.status(HttpStatus.OK).body(listaRetornada);
     }
 
     @GetMapping(value = "/{id}",
@@ -72,7 +76,7 @@ public class ModeloCarroController {
             tags = {"Model"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = MotoristaDto.class))
+                            content = @Content(schema = @Schema(implementation = ModeloCarroDto.class))
                     ),
                     @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -81,9 +85,26 @@ public class ModeloCarroController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             }
     )
-    public  ResponseEntity<?> retornarModelosCarroPorId(@PathVariable(value = "id") Long id){
+    public  ResponseEntity<ModeloCarroDto> retornarModelosCarroPorId(@PathVariable(value = "id") Long id){
         var modeloRetornado = modeloCarroService.retornarModeloCarroPorid(id);
         return  ResponseEntity.status(HttpStatus.CREATED).body(modeloRetornado);
+    }
+
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Deletes a CarModel",
+            description = "Deletes a CarModel by passing in a JSON or XML representation of the CarModel!",
+            tags = {"CarModel"},
+            responses = {
+                    @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
+                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
+                    @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
+                    @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
+                    @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
+            }
+    )
+    public  ResponseEntity<?> deletarCarroPorId(@PathVariable(value = "id") Long id){
+        modeloCarroService.deletarModeloCarroPorId(id);
+        return  ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 }

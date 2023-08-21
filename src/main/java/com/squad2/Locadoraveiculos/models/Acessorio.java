@@ -19,7 +19,6 @@ public class Acessorio {
     private String descricao;
 
     @ManyToMany(mappedBy = "acessorios")
-    @JsonManagedReference
     @JsonIgnoreProperties("acessorios")
     private List<Carro> carros;
 

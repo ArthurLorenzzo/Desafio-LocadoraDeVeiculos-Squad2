@@ -1,6 +1,8 @@
 package com.squad2.Locadoraveiculos.services;
 
-import com.squad2.Locadoraveiculos.dtos.modeloCarroDto.CriarModeloCarroDto;
+import com.squad2.Locadoraveiculos.dtos.fabricanteDto.FabricanteDto;
+import com.squad2.Locadoraveiculos.dtos.modeloCarroDto.ModeloCarroDto;
+import com.squad2.Locadoraveiculos.exceptions.ResourceNotFoundException;
 import com.squad2.Locadoraveiculos.models.ModeloCarro;
 import com.squad2.Locadoraveiculos.repositories.FabricanteRepository;
 import com.squad2.Locadoraveiculos.repositories.ModeloCarroRepository;
@@ -10,39 +12,51 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.NoSuchElementException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ModeloCarroService {
 
     @Autowired
     private ModeloCarroRepository modeloCarroRepository;
-    @Autowired
-    private FabricanteRepository fabricanteRepository;
 
-    public ResponseEntity<?> criarModeloCarro(CriarModeloCarroDto modeloCarroDto){
-        try{
-            ModeloCarro modeloCarro = new ModeloCarro();
-            BeanUtils.copyProperties(modeloCarroDto,modeloCarro,"fabricante");
-            modeloCarro.setFabricante(fabricanteRepository.findById(modeloCarroDto.fabricanteId()).orElseThrow());
-            modeloCarro = modeloCarroRepository.save(modeloCarro);
-            return ResponseEntity.status(HttpStatus.CREATED).body(modeloCarro);
-        }catch (NoSuchElementException e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
-        catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
+    public ModeloCarroDto criarModeloCarro(ModeloCarroDto modeloCarroDto){
+        ModeloCarro modeloCarro = new ModeloCarro();
+        BeanUtils.copyProperties(modeloCarroDto,modeloCarro);
+        modeloCarro = modeloCarroRepository.save(modeloCarro);
+        BeanUtils.copyProperties(modeloCarro,modeloCarroDto);
+        return modeloCarroDto;
     }
 
-    public ResponseEntity<?> retornarTodosOsModelosCarro(){
-        var fabricantesRetornados = modeloCarroRepository.findAll();
-        return ResponseEntity.status(HttpStatus.OK).body(fabricantesRetornados);
+    public List<ModeloCarroDto> retornarTodosOsModelosCarro(){
+        var modeloCarrosRecuperados = modeloCarroRepository.findAll();
+        var modelosCarrosDto = modeloCarrosRecuperados
+                .stream()
+                .map(fabricante -> {
+                 var modeloCarroDto = new ModeloCarroDto();
+                 BeanUtils.copyProperties(fabricante,modeloCarroDto);
+                 return modeloCarroDto;
+                })
+                .toList();
+        return modelosCarrosDto;
     }
 
-    public ModeloCarro retornarModeloCarroPorid(Long id){
-
-        return modeloCarroRepository.findById(id).orElseThrow();
+    public ModeloCarroDto retornarModeloCarroPorid(Long id){
+        var modeloCarroRecuperado = recuperarModeloCarroPorId(id);
+        var modeloCarroDto = new ModeloCarroDto();
+        BeanUtils.copyProperties(modeloCarroRecuperado,modeloCarroDto);
+        return modeloCarroDto;
     }
+
+    public void deletarModeloCarroPorId(Long id){
+        var modeloCarroRecuperado = recuperarModeloCarroPorId(id);
+        modeloCarroRepository.delete(modeloCarroRecuperado);
+    }
+
+    private ModeloCarro recuperarModeloCarroPorId(Long id) {
+        return modeloCarroRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
+    }
+
 
 }

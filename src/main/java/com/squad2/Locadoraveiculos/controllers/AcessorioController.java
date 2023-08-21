@@ -1,8 +1,6 @@
 package com.squad2.Locadoraveiculos.controllers;
 
-import com.squad2.Locadoraveiculos.dtos.acessorioDto.CriarAcessorioDto;
-import com.squad2.Locadoraveiculos.dtos.motoristaDto.MotoristaDto;
-import com.squad2.Locadoraveiculos.models.Acessorio;
+import com.squad2.Locadoraveiculos.dtos.acessorioDto.AcessorioDto;
 import com.squad2.Locadoraveiculos.services.AcessorioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -11,6 +9,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -34,14 +33,17 @@ public class AcessorioController {
             tags = {"Accessory"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = MotoristaDto.class))
+                            content = @Content(schema = @Schema(implementation = AcessorioDto.class))
                     ),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             }
     )
-    public ResponseEntity<Acessorio> criar (@RequestBody CriarAcessorioDto acessorioDto) { return acessorioService.criarAcessorio(acessorioDto); }
+    public ResponseEntity<AcessorioDto> criar (@RequestBody AcessorioDto acessorioDto) {
+        var acessorioCriadoDto = acessorioService.criarAcessorio(acessorioDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(acessorioCriadoDto);
+    }
 
     @GetMapping(produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     @Operation(summary = "Finds all Accessories", description = "Finds all Accessories",
@@ -51,7 +53,7 @@ public class AcessorioController {
                             content = {
                                     @Content(
                                             mediaType = "application/json",
-                                            array = @ArraySchema(schema = @Schema(implementation = MotoristaDto.class))
+                                            array = @ArraySchema(schema = @Schema(implementation = AcessorioDto.class))
                                     )
                             }),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -59,7 +61,10 @@ public class AcessorioController {
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             })
-    public ResponseEntity<List<Acessorio>> retornarTodos () { return acessorioService.retornarTodos(); }
+    public ResponseEntity<List<AcessorioDto>> retornarTodos () {
+        var listaRetornada = acessorioService.retornarTodos();
+        return ResponseEntity.status(HttpStatus.OK).body(listaRetornada);
+    }
 
 
     @GetMapping(value = "{id}",
@@ -68,7 +73,7 @@ public class AcessorioController {
             tags = {"Accessory"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = MotoristaDto.class))
+                            content = @Content(schema = @Schema(implementation = AcessorioDto.class))
                     ),
                     @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -77,7 +82,10 @@ public class AcessorioController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             }
     )
-    public ResponseEntity<?>  retornarPorId (@PathVariable Long id) { return acessorioService.retornaPorId(id); }
+    public ResponseEntity<?>  retornarPorId (@PathVariable Long id) {
+        var acessorioDto = acessorioService.retornaPorId(id);
+        return ResponseEntity.status(HttpStatus.OK).body(acessorioDto);
+    }
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Deletes a Accessory",
@@ -91,6 +99,8 @@ public class AcessorioController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             }
     )
-    public ResponseEntity<?> deletarPorId (@PathVariable Long id) { return acessorioService.deletarPorId(id); }
-
+    public ResponseEntity<?> deletarPorId (@PathVariable Long id) {
+        acessorioService.deletarPorId(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }

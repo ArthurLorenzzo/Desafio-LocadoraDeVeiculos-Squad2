@@ -1,7 +1,6 @@
 package com.squad2.Locadoraveiculos.services;
 
-import com.squad2.Locadoraveiculos.dtos.carroDto.CriarCarroDto;
-import com.squad2.Locadoraveiculos.dtos.carroDto.LerCarroDto;
+import com.squad2.Locadoraveiculos.dtos.carroDto.CarroDto;
 import com.squad2.Locadoraveiculos.models.Acessorio;
 import com.squad2.Locadoraveiculos.models.Carro;
 import com.squad2.Locadoraveiculos.repositories.AcessorioRepository;
@@ -25,7 +24,7 @@ public class CarroService {
     private ModeloCarroRepository modeloCarroRepository;
 
 
-    public LerCarroDto criarCarro(CriarCarroDto carroDTO) {
+    public CarroDto criarCarro(CarroDto carroDTO) {
 
 
         var carroCriado = new Carro();
@@ -43,15 +42,15 @@ public class CarroService {
         var modeloCarro = modeloCarroRepository.findById(carroDTO.getModeloCarroId()).orElseThrow();
         carroCriado.setModeloCarro(modeloCarro);
         carroCriado = carroRepository.save(carroCriado);
-        var carroDto = new LerCarroDto();
+        var carroDto = new CarroDto();
         BeanUtils.copyProperties(carroCriado,carroDto);
         return carroDto;
     }
 
-    public List<LerCarroDto> retornarTodosOsCarros(){
+    public List<CarroDto> retornarTodosOsCarros(){
         var carrosRecuperadosDoBanco = carroRepository.findAll();
-        var listaDeRetornoDto = new ArrayList<LerCarroDto>();
-        var lercarroDto = new LerCarroDto();
+        var listaDeRetornoDto = new ArrayList<CarroDto>();
+        var lercarroDto = new CarroDto();
         carrosRecuperadosDoBanco.forEach(carro -> {
             BeanUtils.copyProperties(carro,lercarroDto);
             listaDeRetornoDto.add(lercarroDto);
@@ -59,10 +58,10 @@ public class CarroService {
         return listaDeRetornoDto;
     }
 
-    public LerCarroDto retornarCarroPorId(long id){
+    public CarroDto retornarCarroPorId(long id){
 
         var carroRecuperadoDoBanco = retornarCarroDoBancoPorId(id);
-        var lerCarroDto = new LerCarroDto();
+        var lerCarroDto = new CarroDto();
         BeanUtils.copyProperties(carroRecuperadoDoBanco,lerCarroDto);
         return lerCarroDto;
     }
