@@ -38,4 +38,4 @@ Diagrama de classes:
 
 5. Acesse a API REST em `http://localhost:8080` e utilize as rotas para interagir com o sistema.
 
-6. Verifique a documentação swagger da aplicação `http://localhost:8080/swagger-ui/index.html#` para ter acesso as rotas
+6. Verifique também a documentação swagger da aplicação `http://localhost:8080/swagger-ui/index.html#` para ter acesso as rotas
