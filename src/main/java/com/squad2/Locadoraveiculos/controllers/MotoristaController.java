@@ -1,9 +1,6 @@
 package com.squad2.Locadoraveiculos.controllers;
 
-import com.squad2.Locadoraveiculos.dtos.motoristaDto.CriarMotoristaDto;
-import com.squad2.Locadoraveiculos.dtos.motoristaDto.LerMotoristaDto;
-import com.squad2.Locadoraveiculos.models.Motorista;
-import com.squad2.Locadoraveiculos.repositories.MotoristaRepository;
+import com.squad2.Locadoraveiculos.dtos.motoristaDto.MotoristaDto;
 import com.squad2.Locadoraveiculos.services.MotoristaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -16,6 +13,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/motoristas")
 @Tag(name = "Driver", description = "Endpoints for Managing Drivers")
@@ -23,9 +22,6 @@ public class MotoristaController {
 
     @Autowired
     private MotoristaService service;
-
-    @Autowired
-    private MotoristaRepository motoristaRepository;
 
     @GetMapping(
             produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
@@ -36,7 +32,7 @@ public class MotoristaController {
                         content = {
                             @Content(
                                     mediaType = "application/json",
-                                    array = @ArraySchema(schema = @Schema(implementation = LerMotoristaDto.class))
+                                    array = @ArraySchema(schema = @Schema(implementation = MotoristaDto.class))
                             )
                         }),
                 @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -45,8 +41,9 @@ public class MotoristaController {
                 @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             }
     )
-    public ResponseEntity<?> findAll() {
-        return service.listarMotoristas();
+    public ResponseEntity<List<MotoristaDto>> findAll() {
+        List<MotoristaDto> listaMotoristaDto = service.findAll();
+        return ResponseEntity.ok(listaMotoristaDto);
     }
 
     @GetMapping(value = "/{id}",
@@ -55,7 +52,7 @@ public class MotoristaController {
             tags = {"Driver"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = LerMotoristaDto.class))
+                            content = @Content(schema = @Schema(implementation = MotoristaDto.class))
                     ),
                     @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -64,8 +61,8 @@ public class MotoristaController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             }
     )
-    public ResponseEntity<?> findMotoristaById (@PathVariable(value = "id")Long id) {
-        return service.buscarMotoristaPorId(id);
+    public MotoristaDto findById (@PathVariable(value = "id") Long id) {
+        return service.findById(id);
     }
 
     @PostMapping(
@@ -76,15 +73,15 @@ public class MotoristaController {
             tags = {"Driver"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = CriarMotoristaDto.class))
+                            content = @Content(schema = @Schema(implementation = MotoristaDto.class))
                     ),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             }
     )
-    public ResponseEntity<Motorista> create(@RequestBody CriarMotoristaDto motoristaDto) {
-        return service.criarMotorista(motoristaDto);
+    public MotoristaDto create(@RequestBody MotoristaDto motorista) {
+        return service.create(motorista);
     }
 
     @PutMapping(
@@ -95,7 +92,7 @@ public class MotoristaController {
             tags = {"Driver"},
             responses = {
                     @ApiResponse(description = "Updated", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = CriarMotoristaDto.class))
+                            content = @Content(schema = @Schema(implementation = MotoristaDto.class))
                     ),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
@@ -103,8 +100,8 @@ public class MotoristaController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             }
     )
-    public ResponseEntity<Motorista> atualizar(@PathVariable Long id, @RequestBody CriarMotoristaDto motorista) {
-        return service.atualizarMotorista(id, motorista);
+    public MotoristaDto update(@RequestBody MotoristaDto motorista) {
+        return service.update(motorista);
     }
 
     @DeleteMapping("/{id}")
@@ -120,6 +117,7 @@ public class MotoristaController {
             }
     )
     public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) {
-        return service.delete(id);
+        service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
