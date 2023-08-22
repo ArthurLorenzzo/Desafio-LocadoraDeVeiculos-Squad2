@@ -20,7 +20,7 @@ import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/apolices")
-@Tag(name = "Apolice", description = "Endpoints for Managing Apolices")
+@Tag(name = "Apolice", description = "Endpoints para Gerenciamento de Apolices")
 public class ApoliceController {
 
 
@@ -30,8 +30,8 @@ public class ApoliceController {
     @PostMapping(
             consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE },
             produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-    @Operation(summary = "Adds a new Apolice",
-            description = "Adds a new Apolice by passing in a JSON or XML representation of the apolice!",
+    @Operation(summary = "Adicionar um novo Apolice",
+            description = "Adiciona um novo Apolice passando uma representação JSON ou XML do Apolice!",
             tags = {"Apolice"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
@@ -49,7 +49,7 @@ public class ApoliceController {
 
     @GetMapping(value = "/{id}",
             produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-    @Operation(summary = "Finds a Apolice", description = "Finds a Apolice",
+    @Operation(summary = "Encontrar um Apolice", description = "Encontrar um Apolice",
             tags = {"Apolice"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
@@ -68,7 +68,7 @@ public class ApoliceController {
     }
 
     @GetMapping(produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-    @Operation(summary = "Finds all Apolices", description = "Finds all Apolices",
+    @Operation(summary = "Encontrar todos Apolices", description = "Encontrar todos Apolices",
             tags = {"Apolice"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
@@ -90,8 +90,8 @@ public class ApoliceController {
     }
 
     @DeleteMapping("/{id}")
-    @Operation(summary = "Deletes a Apolice",
-            description = "Deletes a Apolice by passing in a JSON or XML representation of the apolice!",
+    @Operation(summary = "Deletar um Apolice",
+            description = "Adiciona um Apolice passando uma representação JSON ou XML do Apolice!",
             tags = {"Apolice"},
             responses = {
                     @ApiResponse(description = "No Content", responseCode = "204", content = @Content),

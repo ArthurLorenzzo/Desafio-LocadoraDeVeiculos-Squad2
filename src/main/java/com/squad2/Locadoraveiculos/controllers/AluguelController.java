@@ -21,7 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/alugueis")
-@Tag(name = "Rent", description = "Endpoints for Managing Rents")
+@Tag(name = "Aluguel", description = "Endpoints para Gerenciamento de Alugueis")
 public class AluguelController {
 
     @Autowired
@@ -30,9 +30,9 @@ public class AluguelController {
     @PostMapping(
             consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE },
             produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-    @Operation(summary = "Adds a new Rent",
-            description = "Adds a new Rent by passing in a JSON or XML representation of the rent!",
-            tags = {"Rent"},
+    @Operation(summary = "Adicionar um novo Aluguel",
+            description = "Adiciona um novo Aluguel passando uma representação JSON ou XML do Aluguel!",
+            tags = {"Aluguel"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
                             content = @Content(schema = @Schema(implementation = CriarAluguelDto.class))
@@ -49,8 +49,8 @@ public class AluguelController {
 
     @GetMapping(value = "/{id}",
             produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-    @Operation(summary = "Finds a Rent", description = "Finds a Rent",
-            tags = {"Rent"},
+    @Operation(summary = "Encontrar um Aluguel", description = "Encontrar um Aluguel",
+            tags = {"Aluguel"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
                             content = @Content(schema = @Schema(implementation = LerAluguelDto.class))
@@ -70,8 +70,8 @@ public class AluguelController {
 
     @GetMapping(
             produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-            @Operation(summary = "Finds all Rents", description = "Finds all Rents",
-            tags = {"Rent"},
+    @Operation(summary = "Encontrar todos os Alugueis", description = "Encontrar todos os Alugueis",
+            tags = {"Aluguel"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
                             content = {
@@ -93,9 +93,9 @@ public class AluguelController {
     }
 
     @DeleteMapping("/{id}")
-    @Operation(summary = "Deletes a Rent",
-            description = "Deletes a Rent by passing in a JSON or XML representation of the rent!",
-            tags = {"Rent"},
+    @Operation(summary = "Deletar um Aluguel",
+            description = "Deleta um passando uma representação JSON ou XML do Aluguel!",
+            tags = {"Aluguel"},
             responses = {
                     @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),

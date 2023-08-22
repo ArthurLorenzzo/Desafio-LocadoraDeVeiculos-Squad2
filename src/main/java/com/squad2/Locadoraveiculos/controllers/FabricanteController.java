@@ -21,7 +21,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("api/fabricantes")
-@Tag(name = "Producer", description = "Endpoints for Managing Producers")
+@Tag(name = "Fabricante", description = "Endpoints para Gerenciamento de Fabricantes")
 public class FabricanteController {
     @Autowired
     private FabricanteService fabricanteService;
@@ -29,9 +29,9 @@ public class FabricanteController {
     @PostMapping(
             consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE },
             produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-    @Operation(summary = "Adds a new Producer",
-            description = "Adds a new Producer by passing in a JSON or XML representation of the producer!",
-            tags = {"Producer"},
+    @Operation(summary = "Adicionar um novo Fabricante",
+            description = "Adiciona um novo fabricante passando uma representação JSON ou XML do fabricante!",
+            tags = {"Fabricante"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
                             content = @Content(schema = @Schema(implementation = FabricanteDto.class))
@@ -48,8 +48,8 @@ public class FabricanteController {
 
     @GetMapping(
             produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-    @Operation(summary = "Finds all Producers", description = "Finds all Producers",
-            tags = {"Producer"},
+    @Operation(summary = "Encontrar todos Fabricantes", description = "Encontrar todos Fabricantes",
+            tags = {"Fabricante"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
                             content = {
@@ -71,8 +71,8 @@ public class FabricanteController {
 
    @GetMapping(value = "/{id}",
             produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-    @Operation(summary = "Finds a Producer", description = "Finds a Producer",
-            tags = {"Producer"},
+    @Operation(summary = "Encontrar um Fabricante", description = "Encontrar um Fabricante",
+            tags = {"Fabricante"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
                             content = @Content(schema = @Schema(implementation = LerFabricanteDto.class))
@@ -90,9 +90,9 @@ public class FabricanteController {
    }
 
    @DeleteMapping("/{id}")
-   @Operation(summary = "Deletes a Producer",
-           description = "Deletes a Producer by passing in a JSON or XML representation of the producer!",
-           tags = {"Producer"},
+   @Operation(summary = "Deletar um Fabricante",
+           description = "Deleta um fabricante passando uma representação JSON ou XML do fabricante!",
+           tags = {"Fabricante"},
            responses = {
                    @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),

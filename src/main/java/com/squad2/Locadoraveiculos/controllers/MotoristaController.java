@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/motoristas")
-@Tag(name = "Driver", description = "Endpoints for Managing Drivers")
+@Tag(name = "Motorista", description = "Endpoints para Gerenciamento de Motoristas")
 public class MotoristaController {
 
     @Autowired
@@ -25,8 +25,8 @@ public class MotoristaController {
 
     @GetMapping(
             produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-    @Operation(summary = "Finds all Drivers", description = "Finds all Drivers",
-            tags = {"Driver"},
+    @Operation(summary = "Encontrar todos os Motoristas", description = "Encontrar todos os Motoristas",
+            tags = {"Motorista"},
             responses = {
                 @ApiResponse(description = "Success", responseCode = "200",
                         content = {
@@ -48,8 +48,8 @@ public class MotoristaController {
 
     @GetMapping(value = "/{id}",
             produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-    @Operation(summary = "Finds a Driver", description = "Finds a Driver",
-            tags = {"Driver"},
+    @Operation(summary = "Encontrar um Motorista", description = "Encontrar um Motorista",
+            tags = {"Motorista"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
                             content = @Content(schema = @Schema(implementation = MotoristaDto.class))
@@ -68,9 +68,9 @@ public class MotoristaController {
     @PostMapping(
             consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE },
             produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-    @Operation(summary = "Adds a new Driver",
-            description = "Adds a new Driver by passing in a JSON or XML representation of the driver!",
-            tags = {"Driver"},
+    @Operation(summary = "Adicionar um novo Motorista",
+            description = "Adiciona um novo motorista passando uma representação JSON ou XML do motorista!",
+            tags = {"Motorista"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
                             content = @Content(schema = @Schema(implementation = MotoristaDto.class))
@@ -87,9 +87,9 @@ public class MotoristaController {
     @PutMapping(
             consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE },
             produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-    @Operation(summary = "Updates a Driver",
-            description = "Updates a Driver by passing in a JSON or XML representation of the driver!",
-            tags = {"Driver"},
+    @Operation(summary = "Atualizar um Motorista",
+            description = "Atualiza um motorista passando uma representação JSON ou XML do motorista!",
+            tags = {"Motorista"},
             responses = {
                     @ApiResponse(description = "Updated", responseCode = "200",
                             content = @Content(schema = @Schema(implementation = MotoristaDto.class))
@@ -105,9 +105,9 @@ public class MotoristaController {
     }
 
     @DeleteMapping("/{id}")
-    @Operation(summary = "Deletes a Driver",
-            description = "Deletes a Driver by passing in a JSON or XML representation of the driver!",
-            tags = {"Driver"},
+    @Operation(summary = "Deletar um Motorista",
+            description = "Deleta um motorista passando uma representação JSON ou XML do motorista!",
+            tags = {"Motorista"},
             responses = {
                     @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),

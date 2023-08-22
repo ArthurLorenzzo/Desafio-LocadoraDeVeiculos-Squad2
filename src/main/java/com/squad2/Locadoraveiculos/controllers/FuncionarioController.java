@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,6 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/funcionarios")
+@Tag(name = "Funcionário", description = "Endpoints para Gerenciamento de Funcionários")
 public class FuncionarioController {
 
     @Autowired
@@ -28,7 +30,7 @@ public class FuncionarioController {
             produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     @Operation(summary = "Adicionando um novo funcionário",
             description = "Adiciona um novo funcionário passando uma representação JSON ou XML !",
-            tags = {"funcionário"},
+            tags = {"Funcionário"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
                             content = @Content(schema = @Schema(implementation = FuncionarioDto.class))
@@ -45,7 +47,7 @@ public class FuncionarioController {
 
 
     @Operation(summary = "Procura um funcionário por ID", description = "Procura um funcionário por ID",
-            tags = {"funcionário"},
+            tags = {"Funcionário"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
                             content = @Content(schema = @Schema(implementation = MotoristaDto.class))
@@ -64,8 +66,8 @@ public class FuncionarioController {
     }
     @DeleteMapping("/{id}")
     @Operation(summary = "Deleta um Funcionário",
-            description = "Exclui um funcionário passando uma representação JSON ou XML!!",
-            tags = {"funcionário"},
+            description = "Deleta um funcionário passando uma representação JSON ou XML!!",
+            tags = {"Funcionário"},
             responses = {
                     @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -81,7 +83,7 @@ public class FuncionarioController {
     @GetMapping(
             produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     @Operation(summary = "Procurando todos os funcionários", description = "Procurando todos os funcionários",
-            tags = {"funcionário"},
+            tags = {"Funcionário"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
                             content = {
