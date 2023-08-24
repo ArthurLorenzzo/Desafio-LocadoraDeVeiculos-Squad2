@@ -27,19 +27,186 @@ Trello: https://trello.com/b/QvGBf6JC/desafio-locadora-solutis
 
 - **Gestão de Clientes:** Registro e manutenção de dados dos clientes da locadora. Cada cliente é identificado por informações pessoais e de contato.
 
-- **Reservas e Aluguéis:** Os clientes podem realizar reservas para aluguel de veículos, especificando datas de início e término. O sistema verifica a disponibilidade dos veículos e processa as reservas confirmadas em aluguéis.
+- **Reservas e Aluguéis:** Os clientes podem realizar reservas para aluguel de veículos, especificando datas de início e término.
 
 ## Tecnologias Utilizadas
 
-- **Java:** Linguagem de programação principal para a lógica de negócios e manipulação de dados.
+- **Java:** v20.0 - Linguagem de programação principal para a lógica de negócios e manipulação de dados.
 
-- **Spring Framework:** Utilizado para a criação de APIs RESTful, gerenciamento de dependências e injeção de dependências.
+- **Spring Framework:** v2.0.2 - Utilizado para a criação de APIs RESTful, gerenciamento de dependências e injeção de dependências.
 
-- **Spring Boot:** Facilita a configuração e criação de aplicações Spring, reduzindo a necessidade de configurações manuais.
+- **Spring Boot:** v3.1.2 - Facilita a configuração e criação de aplicações Spring, reduzindo a necessidade de configurações manuais.
 
-- **Spring Data JPA:** Abstração para o acesso e manipulação de dados no banco de dados, facilitando a persistência dos objetos Java.
+- **Maven** v4.0.0 - Gerenciador de dependencias, facilitando a implementação e gerenciamento de bibliotecas.
 
-- **Banco de Dados MySql:** Utilizado para armazenar informações sobre veículos, clientes, reservas e aluguéis.
+- **Spring Data JPA:** - Abstração para o acesso e manipulação de dados no banco de dados, facilitando a persistência dos objetos Java.
+
+- **Banco de Dados MySql:** - Utilizado para armazenar informações sobre veículos, clientes, reservas e aluguéis.
+
+- **Banco de Dados H2:** - Utilizado para armazenar informações sobre veículos, clientes, reservas e aluguéis em fase de testes.
+
+- **Lombok** v1.18.28 - Ferramenta utilizada para amentar a produtividade na criação de componentes internos.
+
+- **IntelliJ IDEA** - IDE utilizada pela equipe para densenvolvimento do projeto.
+
+## Estrategias de Desenvolvimento 
+
+- **Data Trasfer Objects (DTO`s)** - Foi escolhido o uso de DTOs como interface de trasferencia de dados entre as camadas da aplicação.
+
+- **Mappeamento Utilizando Beans.Utils** - Foi utilizado como ferramenta de mappeamento de classes entre camadas da aplicação para casos mais simples. Os casos com complexidade maior o mapeamento foi feito de forma manual. Ex:
+
+```java
+        
+    public LerAluguelDto retornarAlugueisById (Long id) {
+
+    logger.info("Finding one rent!");
+
+    Aluguel aluguel = aluguelRepository.
+            findById(id).
+            orElseThrow(() -> new ResourceNotFoundException("Nenhum registro encontrado para este ID!"));
+
+    LerAluguelDto lerAluguelDto = new LerAluguelDto();
+    BeanUtils.copyProperties(aluguel, lerAluguelDto); //Mapeamento entre entidades
+    return lerAluguelDto;
+  }
+```
+
+- **Inserção Entidades com Relacionamentos** - Para inserção de dados que possuem relacionamento com outras entidades, de qualquer tipo, foi escolhido como estrategia a entradada do identificador unico relacionado ou uma lista dele. ex:
+
+```java
+  @Data
+  public class CriarAluguelDto {
+      @Schema(accessMode = Schema.AccessMode.READ_ONLY)
+      private LocalDate dataPedido;
+
+      private Date dataEntrega;
+
+      private Date dataDevolucao;
+
+      private BigDecimal valorTotal;
+
+      private Long motorista_id; //Identificador Único
+
+      private Long apolicesSeguro_id; //Identificador Único
+
+      private List<Long> carros_id; //Lista de Identificadores Únicos
+  }
+```
+```JSON
+{
+  "dataEntrega": "2023-08-24",
+  "dataDevolucao": "2023-08-24",
+  "valorTotal": 0,
+  "motorista_id": 0,
+  "apolicesSeguro_id": 0,
+  "carros_id": [
+    0
+  ]
+}
+```
+- **Retorno de Entidades com Relacionamentos** - Diferente da estrategia utilizada para a inserção de dados, o retorno de dados com propiedades relacionadas tem como output objetos JSON com suas respectivas relações. Essa forma de retorno foi escolhido de forma a reduzir o numero de interações com o cliente da aplicação. Ex:
+
+```java
+  @Data
+  public class LerAluguelDto {
+
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
+    private Long id;
+
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
+    private LocalDate dataPedido;
+
+    private Date dataEntrega;
+
+    private Date dataDevolucao;
+
+    private BigDecimal valorTotal;
+
+    private Motorista motorista; //Retorno de Relacionamento
+
+    @JsonIgnoreProperties("aluguel")
+    private ApoliceSeguro apoliceSeguro; //Retorno de Relacionamento
+
+    private List<Carro> carros;  //Retorno de Relacionamento
+  } 
+```
+```JSON
+[
+  {
+    "id": 0,
+    "dataPedido": "2023-08-24",
+    "dataEntrega": "2023-08-24",
+    "dataDevolucao": "2023-08-24",
+    "valorTotal": 0,
+    "motorista": {
+      "id": 0,
+      "nome": "string",
+      "dataDeNascimento": "2023-08-24",
+      "cpf": "string",
+      "email": "string",
+      "sexo": "MASCULINO",
+      "numeroCNH": "string"
+    },
+    "apoliceSeguro": {
+      "id": 0,
+      "valorFranquia": 0,
+      "protecaoTerceiro": true,
+      "protecaoCausasNaturais": true,
+      "protecaoRoubo": true
+    },
+    "carros": [
+      {
+        "id": 0,
+        "placa": "string",
+        "chassi": "string",
+        "cor": "string",
+        "valorDiaria": 0,
+        "aluguel": {
+          "id": 0,
+          "dataPedido": "2023-08-24",
+          "dataEntrega": "2023-08-24",
+          "dataDevolucao": "2023-08-24",
+          "valorTotal": 0,
+          "motorista": {
+            "id": 0,
+            "nome": "string",
+            "dataDeNascimento": "2023-08-24",
+            "cpf": "string",
+            "email": "string",
+            "sexo": "MASCULINO",
+            "numeroCNH": "string"
+          },
+          "apoliceSeguro": {
+            "id": 0,
+            "valorFranquia": 0,
+            "protecaoTerceiro": true,
+            "protecaoCausasNaturais": true,
+            "protecaoRoubo": true
+          }
+        },
+        "acessorios": [
+          {
+            "id": 0,
+            "descricao": "string",
+            "carros": [
+              "string"
+            ]
+          }
+        ],
+        "modeloCarro": {
+          "id": 0,
+          "descricao": "string",
+          "categoria": "HATCH_COMPACTO",
+          "fabricante": {
+            "id": 0,
+            "nome": "string"
+          }
+        }
+      }
+    ]
+  }
+]
+```
 
 ## Configuração e Uso
 
