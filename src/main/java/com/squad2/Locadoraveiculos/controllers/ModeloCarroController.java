@@ -93,7 +93,7 @@ public class ModeloCarroController {
     @DeleteMapping("/{id}")
     @Operation(summary = "Deletar um modelo de carro",
             description = "Deletar um Modelo de Carro passando uma representação JSON ou XML do Modelo!",
-            tags = {"CarModel"},
+            tags = {"ModeloCarro"},
             responses = {
                     @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
